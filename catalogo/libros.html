@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Todos los libros — Ediciones Rimayku</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.libros-section {
+  padding: 48px 10vw 120px;
+}
+
+/* Filtros */
+.libros-filtros {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.filtro-btn {
+  font-family: var(--ub);
+  font-size: 8px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  background: none;
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filtro-btn:hover {
+  color: var(--b);
+  border-color: rgba(255,255,255,0.2);
+}
+.filtro-btn.active {
+  color: var(--b);
+  border-color: var(--c);
+  background: rgba(196,0,58,0.08);
+}
+
+/* Grid de libros */
+.libros-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px 24px;
+}
+
+.libro-card {
+  display: flex;
+  flex-direction: column;
+  cursor: default;
+}
+.libro-card[data-hidden="true"] { display: none; }
+
+.libro-cover {
+  aspect-ratio: 2/3;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.libro-cover-inner {
+  position: absolute; inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px 18px;
+  transition: transform 0.4s ease;
+}
+.libro-card:hover .libro-cover-inner { transform: scale(1.03); }
+
+.libro-coleccion {
+  font-size: 7px; letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.libro-titulo-cover {
+  font-family: var(--ub);
+  font-weight: 900;
+  font-size: 17px; letter-spacing: -0.3px;
+  line-height: 1.05; margin-bottom: 4px;
+}
+
+.libro-autor-cover {
+  font-family: var(--cg);
+  font-size: 13px; font-style: italic;
+  opacity: 0.7;
+}
+
+.libro-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.libro-info {}
+.libro-titulo-small {
+  font-family: var(--ub);
+  font-size: 12px; font-weight: 700;
+  letter-spacing: -0.2px;
+  color: var(--b); margin-bottom: 3px;
+  line-height: 1.2;
+}
+.libro-autor-small {
+  font-family: var(--cg);
+  font-size: 13px; font-style: italic;
+  color: rgba(255,255,255,0.4);
+}
+
+.libro-badge {
+  font-size: 7px; letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.3);
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.libro-badge.nuevo { border-color: var(--c); color: var(--c); }
+
+/* Sin resultados */
+.libros-empty {
+  display: none;
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 0;
+}
+.libros-empty.visible { display: block; }
+.libros-empty p {
+  font-family: var(--cg);
+  font-size: 18px; font-style: italic;
+  color: rgba(255,255,255,0.3);
+}
+
+@media (max-width: 1100px) {
+  .libros-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  .libros-section { padding: 40px 6vw 80px; }
+  .libros-grid { grid-template-columns: repeat(2, 1fr); gap: 24px 16px; }
+}
+@media (max-width: 480px) {
+  .libros-grid { grid-template-columns: 1fr 1fr; gap: 20px 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ MOBILE MENU ══ -->
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mobile-close" id="mobileClose">✕</span>
+  <a href="../index.html" onclick="closeMobile()">Home</a>
+  <a href="../index.html#quienes" onclick="closeMobile()">Quiénes somos</a>
+  <a href="colecciones.html" onclick="closeMobile()">Colecciones</a>
+  <a href="libros.html" onclick="closeMobile()">Todos los libros</a>
+  <a href="autores.html" onclick="closeMobile()">Autores</a>
+  <a href="../index.html#manuscrito" onclick="closeMobile()">Tengo cosas para decir</a>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav id="nav" class="scrolled">
+  <a href="../index.html" class="nav-logo">
+    <span class="sil">RI</span><span class="sil-dot">·</span><span class="sil-accent">MAY</span><span class="sil-dot">·</span><span class="sil">KU</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../index.html#quienes">Quiénes somos</a></li>
+    <li class="nav-item-dropdown" id="dropdownItem">
+      <a href="colecciones.html" class="dropdown-toggle active" id="dropdownToggle">
+        Catálogo <span class="dropdown-arrow"></span>
+      </a>
+      <div class="dropdown-menu" id="dropdownMenu">
+        <a href="colecciones.html">Colecciones</a>
+        <a href="libros.html" class="active">Todos los libros</a>
+        <a href="autores.html">Autores</a>
+      </div>
+    </li>
+    <li><a href="../index.html#manuscrito" class="nav-cta">Tengo cosas para decir</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ══ PAGE HERO ══ -->
+<div class="page-hero">
+  <h1 class="reveal">Todos los<br><em>libros</em></h1>
+  <p class="reveal reveal-d1">El catálogo completo de Ediciones Rimayku.</p>
+</div>
+
+<!-- ══ SUB-NAV ══ -->
+<div class="catalog-subnav">
+  <a href="colecciones.html">Colecciones</a>
+  <a href="libros.html" class="active">Todos los libros</a>
+  <a href="autores.html">Autores</a>
+</div>
+
+<!-- ══ LIBROS ══ -->
+<div class="libros-section">
+
+  <!-- Filtros -->
+  <div class="libros-filtros reveal">
+    <button class="filtro-btn active" data-filtro="todos" onclick="filtrar(this)">Todos</button>
+    <button class="filtro-btn" data-filtro="voces-del-monte" onclick="filtrar(this)">Voces del monte</button>
+    <button class="filtro-btn" data-filtro="la-palabra-prestada" onclick="filtrar(this)">La palabra prestada</button>
+    <button class="filtro-btn" data-filtro="decir-primero" onclick="filtrar(this)">Decir primero</button>
+  </div>
+
+  <div class="libros-grid" id="librosGrid">
+
+    <div class="libro-card reveal" data-coleccion="voces-del-monte">
+      <div class="libro-cover">
+        <div class="libro-cover-inner" style="background:var(--c);">
+          <div class="libro-coleccion" style="color:rgba(255,255,255,0.5);">Voces del monte</div>
+          <div class="libro-titulo-cover" style="color:var(--b);">El silencio<br>que habla</div>
+          <div class="libro-autor-cover" style="color:rgba(255,255,255,0.75);">Lucía Mamani</div>
+        </div>
+      </div>
+      <div class="libro-meta">
+        <div class="libro-info">
+          <div class="libro-titulo-small">El silencio que habla</div>
+          <div class="libro-autor-small">Lucía Mamani</div>
+        </div>
+        <div class="libro-badge nuevo">Nuevo</div>
+      </div>
+    </div>
+
+    <div class="libro-card reveal reveal-d1" data-coleccion="la-palabra-prestada">
+      <div class="libro-cover">
+        <div class="libro-cover-inner" style="background:#1a1a1a;">
+          <div class="libro-coleccion" style="color:rgba(255,255,255,0.3);">La palabra prestada</div>
+          <div class="libro-titulo-cover" style="color:var(--b);">Desde el<br>fondo del río</div>
+          <div class="libro-autor-cover" style="color:rgba(255,255,255,0.6);">Omar Sayago</div>
+        </div>
+      </div>
+      <div class="libro-meta">
+        <div class="libro-info">
+          <div class="libro-titulo-small">Desde el fondo del río</div>
+          <div class="libro-autor-small">Omar Sayago</div>
+        </div>
+        <div class="libro-badge">2024</div>
+      </div>
+    </div>
+
+    <div class="libro-card reveal reveal-d2" data-coleccion="decir-primero">
+      <div class="libro-cover">
+        <div class="libro-cover-inner" style="background:#2a0a12;">
+          <div class="libro-coleccion" style="color:rgba(255,255,255,0.35);">Decir primero</div>
+          <div class="libro-titulo-cover" style="color:var(--b);">Nacer<br>dos veces</div>
+          <div class="libro-autor-cover" style="color:rgba(255,255,255,0.65);">Verónica Ajmat</div>
+        </div>
+      </div>
+      <div class="libro-meta">
+        <div class="libro-info">
+          <div class="libro-titulo-small">Nacer dos veces</div>
+          <div class="libro-autor-small">Verónica Ajmat</div>
+        </div>
+        <div class="libro-badge">2024</div>
+      </div>
+    </div>
+
+    <div class="libro-card reveal reveal-d3" data-coleccion="voces-del-monte">
+      <div class="libro-cover">
+        <div class="libro-cover-inner" style="background:#0d0d0d;border:1px solid rgba(255,255,255,0.06);">
+          <div class="libro-coleccion" style="color:rgba(255,255,255,0.25);">Voces del monte</div>
+          <div class="libro-titulo-cover" style="color:var(--b);">Lo que no<br>se nombra</div>
+          <div class="libro-autor-cover" style="color:rgba(255,255,255,0.55);">Juan Chávez</div>
+        </div>
+      </div>
+      <div class="libro-meta">
+        <div class="libro-info">
+          <div class="libro-titulo-small">Lo que no se nombra</div>
+          <div class="libro-autor-small">Juan Chávez</div>
+        </div>
+        <div class="libro-badge">2023</div>
+      </div>
+    </div>
+
+    <div class="libro-card reveal" data-coleccion="la-palabra-prestada">
+      <div class="libro-cover">
+        <div class="libro-cover-inner" style="background:#111;">
+          <div class="libro-coleccion" style="color:rgba(255,255,255,0.25);">La palabra prestada</div>
+          <div class="libro-titulo-cover" style="color:var(--b);">El idioma<br>de los otros</div>
+          <div class="libro-autor-cover" style="color:rgba(255,255,255,0.55);">Marta Ruiz</div>
+        </div>
+      </div>
+      <div class="libro-meta">
+        <div class="libro-info">
+          <div class="libro-titulo-small">El idioma de los otros</div>
+          <div class="libro-autor-small">Marta Ruiz</div>
+        </div>
+        <div class="libro-badge">2023</div>
+      </div>
+    </div>
+
+    <div class="libro-card reveal reveal-d1" data-coleccion="voces-del-monte">
+      <div class="libro-cover">
+        <div class="libro-cover-inner" style="background:#3a000f;">
+          <div class="libro-coleccion" style="color:rgba(255,255,255,0.35);">Voces del monte</div>
+          <div class="libro-titulo-cover" style="color:var(--b);">Tierra<br>sin nombre</div>
+          <div class="libro-autor-cover" style="color:rgba(255,255,255,0.6);">Pablo Tolaba</div>
+        </div>
+      </div>
+      <div class="libro-meta">
+        <div class="libro-info">
+          <div class="libro-titulo-small">Tierra sin nombre</div>
+          <div class="libro-autor-small">Pablo Tolaba</div>
+        </div>
+        <div class="libro-badge">2023</div>
+      </div>
+    </div>
+
+    <div class="libro-card reveal reveal-d2" data-coleccion="decir-primero">
+      <div class="libro-cover">
+        <div class="libro-cover-inner" style="background:var(--b);">
+          <div class="libro-coleccion" style="color:rgba(17,17,17,0.35);">Decir primero</div>
+          <div class="libro-titulo-cover" style="color:var(--n);">Primeras<br>palabras</div>
+          <div class="libro-autor-cover" style="color:rgba(17,17,17,0.55);">Carla Moreno</div>
+        </div>
+      </div>
+      <div class="libro-meta">
+        <div class="libro-info">
+          <div class="libro-titulo-small">Primeras palabras</div>
+          <div class="libro-autor-small">Carla Moreno</div>
+        </div>
+        <div class="libro-badge">2022</div>
+      </div>
+    </div>
+
+    <div class="libro-card reveal reveal-d3" data-coleccion="la-palabra-prestada">
+      <div class="libro-cover">
+        <div class="libro-cover-inner" style="background:#0a0a0a;border:1px solid rgba(255,255,255,0.05);">
+          <div class="libro-coleccion" style="color:rgba(255,255,255,0.2);">La palabra prestada</div>
+          <div class="libro-titulo-cover" style="color:rgba(255,255,255,0.85);">Hablar<br>en silencio</div>
+          <div class="libro-autor-cover" style="color:rgba(255,255,255,0.45);">Sergio Coria</div>
+        </div>
+      </div>
+      <div class="libro-meta">
+        <div class="libro-info">
+          <div class="libro-titulo-small">Hablar en silencio</div>
+          <div class="libro-autor-small">Sergio Coria</div>
+        </div>
+        <div class="libro-badge">2022</div>
+      </div>
+    </div>
+
+    <!-- Estado vacío -->
+    <div class="libros-empty" id="librosEmpty">
+      <p>No hay libros en esta colección todavía.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">
+        <span class="sil">RI</span><span class="sil-dot">·</span><span class="sil-accent">MAY</span><span class="sil-dot">·</span><span class="sil">KU</span>
+      </div>
+      <div class="footer-tagline">Editorial argentina. Publicamos la voz que se animó a decirlo.</div>
+    </div>
+    <div>
+      <div class="footer-col-title">Editorial</div>
+      <div class="footer-links">
+        <a href="../index.html#quienes">Quiénes somos</a>
+        <a href="colecciones.html">Colecciones</a>
+        <a href="libros.html">Todos los libros</a>
+        <a href="../index.html#manuscrito">Enviar manuscrito</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Contacto</div>
+      <div class="footer-links">
+        <a href="mailto:hola@rimayku.com.ar">hola@rimayku.com.ar</a>
+        <a href="#">rimayku.com.ar</a>
+        <a href="#">Buenos Aires, Argentina</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Ediciones Rimayku · Ri · may · ku</div>
+    <div class="footer-social">
+      <a href="#">Instagram</a>
+      <a href="#">TikTok</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY <= 40) nav.classList.remove('scrolled');
+  else nav.classList.add('scrolled');
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Dropdown
+const dropItem   = document.getElementById('dropdownItem');
+const dropToggle = document.getElementById('dropdownToggle');
+
+dropToggle.addEventListener('click', (e) => {
+  if (window.innerWidth <= 900) return;
+  e.preventDefault();
+  dropItem.classList.toggle('open');
+});
+document.addEventListener('click', (e) => {
+  if (!dropItem.contains(e.target)) dropItem.classList.remove('open');
+});
+
+// Filtros
+function filtrar(btn) {
+  document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const filtro = btn.dataset.filtro;
+  const cards  = document.querySelectorAll('.libro-card[data-coleccion]');
+  let visible  = 0;
+
+  cards.forEach(card => {
+    const show = filtro === 'todos' || card.dataset.coleccion === filtro;
+    card.style.display = show ? 'flex' : 'none';
+    if (show) visible++;
+  });
+
+  const empty = document.getElementById('librosEmpty');
+  empty.classList.toggle('visible', visible === 0);
+}
+
+// Mobile menu
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.add('open');
+});
+document.getElementById('mobileClose').addEventListener('click', closeMobile);
+function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+</script>
+</body>
+</html>

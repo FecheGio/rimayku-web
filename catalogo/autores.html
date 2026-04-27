@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autores — Ediciones Rimayku</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.autores-section {
+  padding: 64px 10vw 120px;
+}
+
+.autores-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 80px;
+}
+
+.autor-card {
+  padding: 44px 36px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: background 0.2s, border-color 0.2s;
+  cursor: default;
+}
+.autor-card:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.08);
+}
+
+.autor-header { display: flex; gap: 20px; align-items: flex-start; }
+
+.autor-initials {
+  width: 56px; height: 56px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--ub);
+  font-weight: 900; font-size: 16px;
+  letter-spacing: -0.5px;
+}
+
+.autor-meta {}
+.autor-name {
+  font-family: var(--ub);
+  font-weight: 900;
+  font-size: 16px; letter-spacing: -0.3px;
+  color: var(--b);
+  margin-bottom: 6px;
+  line-height: 1.1;
+}
+.autor-coleccion {
+  font-size: 8px; letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid;
+  display: inline-block;
+}
+
+.autor-bio {
+  font-family: var(--cg);
+  font-size: 15px; font-style: italic;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.5);
+  flex-grow: 1;
+}
+
+.autor-libros {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.autor-libro-item {
+  font-family: var(--cg);
+  font-size: 13px; font-style: italic;
+  color: rgba(255,255,255,0.3);
+  display: flex;
+  justify-content: space-between;
+}
+.autor-libro-item span {
+  font-family: var(--ub);
+  font-size: 8px; font-style: normal;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.2);
+}
+
+/* Colección color codes */
+.col-voces .autor-initials    { background: var(--c); color: var(--b); }
+.col-voces .autor-coleccion   { color: var(--c); border-color: rgba(196,0,58,0.35); }
+
+.col-palabra .autor-initials  { background: var(--n); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.1); }
+.col-palabra .autor-coleccion { color: rgba(255,255,255,0.4); border-color: rgba(255,255,255,0.12); }
+
+.col-decir .autor-initials    { background: var(--b); color: var(--n); }
+.col-decir .autor-coleccion   { color: rgba(255,255,255,0.4); border-color: rgba(255,255,255,0.12); }
+
+/* CTA convocatoria */
+.autores-cta {
+  background: rgba(196,0,58,0.06);
+  border: 1px solid rgba(196,0,58,0.2);
+  padding: 56px 64px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: center;
+}
+
+.autores-cta-title {
+  font-family: var(--ub);
+  font-size: clamp(20px,2.5vw,28px);
+  font-weight: 900;
+  letter-spacing: -1px; line-height: 1;
+  color: var(--b); margin-bottom: 12px;
+}
+.autores-cta-title em { font-style: normal; color: var(--c); }
+
+.autores-cta-desc {
+  font-family: var(--cg);
+  font-size: 15px; font-style: italic;
+  color: rgba(255,255,255,0.45); line-height: 1.6;
+}
+
+.btn-cta-red {
+  display: inline-block;
+  font-family: var(--ub);
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  text-decoration: none;
+  color: var(--b);
+  background: var(--c);
+  padding: 16px 28px;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.btn-cta-red:hover { background: #a0002e; }
+
+@media (max-width: 1100px) {
+  .autores-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 900px) {
+  .autores-section { padding: 40px 6vw 80px; }
+  .autores-grid { grid-template-columns: 1fr; }
+  .autores-cta { grid-template-columns: 1fr; padding: 36px 28px; gap: 28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ MOBILE MENU ══ -->
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mobile-close" id="mobileClose">✕</span>
+  <a href="../index.html" onclick="closeMobile()">Home</a>
+  <a href="../index.html#quienes" onclick="closeMobile()">Quiénes somos</a>
+  <a href="colecciones.html" onclick="closeMobile()">Colecciones</a>
+  <a href="libros.html" onclick="closeMobile()">Todos los libros</a>
+  <a href="autores.html" onclick="closeMobile()">Autores</a>
+  <a href="../index.html#manuscrito" onclick="closeMobile()">Tengo cosas para decir</a>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav id="nav" class="scrolled">
+  <a href="../index.html" class="nav-logo">
+    <span class="sil">RI</span><span class="sil-dot">·</span><span class="sil-accent">MAY</span><span class="sil-dot">·</span><span class="sil">KU</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../index.html#quienes">Quiénes somos</a></li>
+    <li class="nav-item-dropdown" id="dropdownItem">
+      <a href="colecciones.html" class="dropdown-toggle active" id="dropdownToggle">
+        Catálogo <span class="dropdown-arrow"></span>
+      </a>
+      <div class="dropdown-menu" id="dropdownMenu">
+        <a href="colecciones.html">Colecciones</a>
+        <a href="libros.html">Todos los libros</a>
+        <a href="autores.html" class="active">Autores</a>
+      </div>
+    </li>
+    <li><a href="../index.html#manuscrito" class="nav-cta">Tengo cosas para decir</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ══ PAGE HERO ══ -->
+<div class="page-hero">
+  <h1 class="reveal">Au<em>tores</em></h1>
+  <p class="reveal reveal-d1">Las voces detrás de cada libro.</p>
+</div>
+
+<!-- ══ CATALOG SUB-NAV ══ -->
+<div class="catalog-subnav">
+  <a href="colecciones.html">Colecciones</a>
+  <a href="libros.html">Todos los libros</a>
+  <a href="autores.html" class="active">Autores</a>
+</div>
+
+<!-- ══ AUTORES ══ -->
+<div class="autores-section">
+
+  <div class="autores-grid">
+
+    <div class="autor-card col-voces reveal">
+      <div class="autor-header">
+        <div class="autor-initials">LM</div>
+        <div class="autor-meta">
+          <div class="autor-name">Lucía Mamani</div>
+          <div class="autor-coleccion">Voces del monte</div>
+        </div>
+      </div>
+      <div class="autor-bio">Nació en Tilcara, creció entre dos idiomas y aprendió a escribir para no olvidar ninguno. Su primera novela no pide permiso para existir.</div>
+      <div class="autor-libros">
+        <div class="autor-libro-item">El silencio que habla <span>2025</span></div>
+      </div>
+    </div>
+
+    <div class="autor-card col-palabra reveal reveal-d1">
+      <div class="autor-header">
+        <div class="autor-initials">OS</div>
+        <div class="autor-meta">
+          <div class="autor-name">Omar Sayago</div>
+          <div class="autor-coleccion">La palabra prestada</div>
+        </div>
+      </div>
+      <div class="autor-bio">Periodista y ensayista formado en Santiago del Estero. Escribe sobre lo que preferiríamos no saber. Sus columnas circularon más de lo que se imprimieron.</div>
+      <div class="autor-libros">
+        <div class="autor-libro-item">Desde el fondo del río <span>2024</span></div>
+      </div>
+    </div>
+
+    <div class="autor-card col-decir reveal reveal-d2">
+      <div class="autor-header">
+        <div class="autor-initials">VA</div>
+        <div class="autor-meta">
+          <div class="autor-name">Verónica Ajmat</div>
+          <div class="autor-coleccion">Decir primero</div>
+        </div>
+      </div>
+      <div class="autor-bio">Tucumana. Escribe desde adentro del cuerpo. Su primera novela es también un manifiesto, aunque ella prefiere no llamarla así.</div>
+      <div class="autor-libros">
+        <div class="autor-libro-item">Nacer dos veces <span>2024</span></div>
+      </div>
+    </div>
+
+    <div class="autor-card col-voces reveal">
+      <div class="autor-header">
+        <div class="autor-initials">JC</div>
+        <div class="autor-meta">
+          <div class="autor-name">Juan Chávez</div>
+          <div class="autor-coleccion">Voces del monte</div>
+        </div>
+      </div>
+      <div class="autor-bio">Poeta y narrador del Chaco. Escribe en castellano pero piensa en guaraní. Lo que no se puede traducir lo convierte en imagen.</div>
+      <div class="autor-libros">
+        <div class="autor-libro-item">Lo que no se nombra <span>2023</span></div>
+      </div>
+    </div>
+
+    <div class="autor-card col-palabra reveal reveal-d1">
+      <div class="autor-header">
+        <div class="autor-initials">MR</div>
+        <div class="autor-meta">
+          <div class="autor-name">Marta Ruiz</div>
+          <div class="autor-coleccion">La palabra prestada</div>
+        </div>
+      </div>
+      <div class="autor-bio">Lingüista y ensayista. Investigó durante quince años el quichua santiagueño antes de escribir el libro que nadie del ámbito académico quiso publicar.</div>
+      <div class="autor-libros">
+        <div class="autor-libro-item">El idioma de los otros <span>2023</span></div>
+      </div>
+    </div>
+
+    <div class="autor-card col-voces reveal reveal-d2">
+      <div class="autor-header">
+        <div class="autor-initials">PT</div>
+        <div class="autor-meta">
+          <div class="autor-name">Pablo Tolaba</div>
+          <div class="autor-coleccion">Voces del monte</div>
+        </div>
+      </div>
+      <div class="autor-bio">Jujeño. Criado entre la puna y la ciudad, escribe desde la grieta de los dos. Sus poemas se leyeron en voz alta antes de escribirse.</div>
+      <div class="autor-libros">
+        <div class="autor-libro-item">Tierra sin nombre <span>2023</span></div>
+      </div>
+    </div>
+
+    <div class="autor-card col-decir reveal">
+      <div class="autor-header">
+        <div class="autor-initials">CM</div>
+        <div class="autor-meta">
+          <div class="autor-name">Carla Moreno</div>
+          <div class="autor-coleccion">Decir primero</div>
+        </div>
+      </div>
+      <div class="autor-bio">Salta, 1994. Maestra rural. Empezó a escribir cuando dejó de tener tiempo para escribir. Su libro salió antes de que ella se animara a llamarse escritora.</div>
+      <div class="autor-libros">
+        <div class="autor-libro-item">Primeras palabras <span>2022</span></div>
+      </div>
+    </div>
+
+    <div class="autor-card col-palabra reveal reveal-d1">
+      <div class="autor-header">
+        <div class="autor-initials">SC</div>
+        <div class="autor-meta">
+          <div class="autor-name">Sergio Coria</div>
+          <div class="autor-coleccion">La palabra prestada</div>
+        </div>
+      </div>
+      <div class="autor-bio">Músico reconvertido en ensayista. Escribe sobre el silencio con la precisión de quien sabe cuándo no tocar. Sus textos piensan en voz baja.</div>
+      <div class="autor-libros">
+        <div class="autor-libro-item">Hablar en silencio <span>2022</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="autores-cta reveal">
+    <div>
+      <div class="autores-cta-title">¿Tu voz todavía<br>no está <em>acá</em>?</div>
+      <div class="autores-cta-desc">Leemos todo lo que nos llega. Sin filtros previos, sin requisitos de currículum.</div>
+    </div>
+    <a href="../index.html#manuscrito" class="btn-cta-red">Enviar manuscrito →</a>
+  </div>
+
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">
+        <span class="sil">RI</span><span class="sil-dot">·</span><span class="sil-accent">MAY</span><span class="sil-dot">·</span><span class="sil">KU</span>
+      </div>
+      <div class="footer-tagline">Editorial argentina. Publicamos la voz que se animó a decirlo.</div>
+    </div>
+    <div>
+      <div class="footer-col-title">Editorial</div>
+      <div class="footer-links">
+        <a href="../index.html#quienes">Quiénes somos</a>
+        <a href="colecciones.html">Colecciones</a>
+        <a href="libros.html">Todos los libros</a>
+        <a href="autores.html">Autores</a>
+        <a href="../index.html#manuscrito">Enviar manuscrito</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Contacto</div>
+      <div class="footer-links">
+        <a href="mailto:hola@rimayku.com.ar">hola@rimayku.com.ar</a>
+        <a href="#">rimayku.com.ar</a>
+        <a href="#">Buenos Aires, Argentina</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Ediciones Rimayku · Ri · may · ku</div>
+    <div class="footer-social">
+      <a href="#">Instagram</a>
+      <a href="#">TikTok</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+const dropItem   = document.getElementById('dropdownItem');
+const dropToggle = document.getElementById('dropdownToggle');
+dropToggle.addEventListener('click', (e) => {
+  if (window.innerWidth <= 900) return;
+  e.preventDefault();
+  dropItem.classList.toggle('open');
+});
+document.addEventListener('click', (e) => {
+  if (!dropItem.contains(e.target)) dropItem.classList.remove('open');
+});
+
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.add('open');
+});
+document.getElementById('mobileClose').addEventListener('click', closeMobile);
+function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+</script>
+</body>
+</html>

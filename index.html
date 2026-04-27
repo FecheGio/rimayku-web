@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ediciones Rimayku</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ── HERO ── */
+#home {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-left {
+  background: var(--night);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 140px 56px 56px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-right {
+  background: var(--c);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 52px 56px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-right::before {
+  content: 'R';
+  position: absolute;
+  font-family: var(--ub);
+  font-weight: 900;
+  font-size: 600px;
+  color: rgba(0,0,0,0.1);
+  line-height: 1;
+  right: -80px; top: -60px;
+  pointer-events: none;
+}
+
+.hero-logo-wrap {
+  opacity: 0;
+  animation: fadeUp 1s ease 0.5s forwards;
+}
+
+.hero-sub {
+  font-family: var(--ub);
+  font-size: 11px; font-weight: 300;
+  letter-spacing: 5px; text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  margin-bottom: 14px;
+}
+
+.hero-syl {
+  font-family: var(--ub);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -2px;
+}
+.hs { display: block; font-size: clamp(72px,10vw,120px); }
+.hs-w { color: var(--b); }
+.hs-r { color: var(--c); }
+
+.hero-foot {
+  font-family: var(--cg);
+  font-size: 15px; font-style: italic;
+  color: rgba(255,255,255,0.3);
+  opacity: 0;
+  animation: fadeUp 1s ease 0.8s forwards;
+}
+
+.hero-right-content {
+  position: relative; z-index: 1;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.9s forwards;
+}
+
+.hero-tagline {
+  font-family: var(--cg);
+  font-size: clamp(18px,2.5vw,28px);
+  font-style: italic; line-height: 1.4;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 32px; max-width: 340px;
+}
+
+.hero-def {
+  font-family: var(--ub);
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(255,255,255,0.5); line-height: 1.8;
+}
+
+.hero-cta-wrap {
+  margin-top: 40px;
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+
+.btn-outline {
+  display: inline-block;
+  font-family: var(--ub);
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  text-decoration: none;
+  color: var(--b);
+  border: 1px solid rgba(255,255,255,0.35);
+  padding: 13px 24px;
+  transition: background 0.2s, border-color 0.2s;
+  background: rgba(0,0,0,0.2);
+}
+.btn-outline:hover {
+  background: rgba(0,0,0,0.45);
+  border-color: rgba(255,255,255,0.8);
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 8px;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.6s forwards;
+}
+.scroll-hint span {
+  font-size: 8px; letter-spacing: 4px;
+  text-transform: uppercase; color: rgba(255,255,255,0.18);
+}
+.scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.2), transparent);
+  animation: scrollPulse 2s ease-in-out 2s infinite;
+}
+
+/* ── QUIÉNES SOMOS ── */
+#quienes {
+  background: var(--b);
+  color: var(--n);
+  padding: 120px 10vw;
+}
+
+.qs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+  margin-bottom: 80px;
+}
+
+.qs-left h2 {
+  font-family: var(--ub);
+  font-size: clamp(36px,5vw,64px);
+  font-weight: 900;
+  line-height: 0.92; letter-spacing: -2px;
+  margin-bottom: 40px;
+}
+.qs-left h2 em { font-style: normal; color: var(--c); }
+
+.qs-quote {
+  font-family: var(--cg);
+  font-size: clamp(16px,2vw,22px);
+  font-style: italic; line-height: 1.7;
+  color: var(--n);
+  padding-left: 20px;
+  border-left: 3px solid var(--c);
+}
+
+.qs-right { display: flex; flex-direction: column; gap: 32px; }
+
+.pilar { padding-left: 20px; border-left: 2px solid var(--c); }
+.pilar-title {
+  font-family: var(--ub);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: var(--c); margin-bottom: 8px;
+}
+.pilar-desc {
+  font-family: var(--cg);
+  font-size: 15px; font-style: italic;
+  line-height: 1.7; color: #444;
+}
+
+.nombre-strip {
+  background: var(--n);
+  padding: 64px 72px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: center;
+}
+
+.nb-syl {
+  font-family: var(--ub);
+  font-size: clamp(48px,7vw,88px);
+  font-weight: 900;
+  line-height: 0.88; letter-spacing: -2px;
+}
+.nb-dot { color: var(--c); opacity: 0.45; }
+.nb-word {
+  font-family: var(--ub);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--c); margin-bottom: 20px;
+}
+.nb-def {
+  font-family: var(--cg);
+  font-size: 18px; font-style: italic;
+  line-height: 1.7; color: rgba(255,255,255,0.65);
+  margin-bottom: 32px;
+}
+.nb-tags { display: flex; flex-direction: column; }
+.nb-tag { display: flex; }
+.nb-tag-k {
+  font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(255,255,255,0.22); width: 120px; flex-shrink: 0;
+  padding: 8px 0; border-bottom: 0.5px solid rgba(255,255,255,0.06);
+}
+.nb-tag-v {
+  font-family: var(--cg);
+  font-size: 14px; font-style: italic;
+  color: rgba(255,255,255,0.6);
+  padding: 6px 0 6px 16px;
+  border-bottom: 0.5px solid rgba(255,255,255,0.06);
+}
+
+/* ── NOVEDADES ── */
+#novedades {
+  background: var(--night);
+  padding: 120px 10vw;
+}
+
+#novedades > .section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 56px;
+}
+#novedades h2 {
+  font-family: var(--ub);
+  font-size: clamp(32px,5vw,56px);
+  font-weight: 900;
+  letter-spacing: -2px; line-height: 0.92;
+  color: var(--b);
+}
+#novedades h2 em { font-style: normal; color: var(--c); }
+
+.novedades-all {
+  font-family: var(--cg);
+  font-size: 14px; font-style: italic;
+  color: rgba(255,255,255,0.3);
+  text-decoration: none;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+.novedades-all:hover { color: var(--c); }
+
+.novedades-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 2px;
+}
+
+.novedad-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 36px 32px;
+  min-height: 320px;
+  cursor: default;
+  transition: background 0.2s;
+}
+
+.novedad-card.featured {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.novedad-card.secondary {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+.novedad-card:hover { background: rgba(255,255,255,0.05); }
+
+.nov-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+.nov-tag {
+  font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+  padding: 5px 10px; border: 1px solid;
+}
+.nov-tag.lanzamiento { color: var(--c); border-color: rgba(196,0,58,0.4); }
+.nov-tag.evento { color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.15); }
+.nov-tag.editorial { color: rgba(255,255,255,0.4); border-color: rgba(255,255,255,0.1); }
+
+.nov-date {
+  font-size: 8px; letter-spacing: 2px;
+  color: rgba(255,255,255,0.2);
+}
+
+.nov-title {
+  font-family: var(--ub);
+  font-weight: 900;
+  letter-spacing: -0.5px; line-height: 1.05;
+  color: var(--b);
+  margin-bottom: 16px;
+}
+.nov-title.large { font-size: clamp(20px,2.5vw,28px); }
+.nov-title.small { font-size: 17px; }
+
+.nov-excerpt {
+  font-family: var(--cg);
+  font-size: 14px; font-style: italic;
+  line-height: 1.65; color: rgba(255,255,255,0.45);
+  flex-grow: 1;
+  margin-bottom: 24px;
+}
+
+.nov-author {
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 16px;
+}
+
+/* ── MANUSCRITO ── */
+#manuscrito {
+  background: var(--c);
+  padding: 120px 10vw;
+  position: relative;
+  overflow: hidden;
+}
+#manuscrito::before {
+  content: 'R';
+  position: absolute;
+  font-family: var(--ub);
+  font-weight: 900;
+  font-size: 700px;
+  color: rgba(0,0,0,0.07);
+  line-height: 1;
+  right: -100px; bottom: -120px;
+  pointer-events: none;
+}
+
+.ms-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: start;
+  position: relative; z-index: 1;
+}
+
+.ms-left h2 {
+  font-family: var(--ub);
+  font-size: clamp(36px,5vw,64px);
+  font-weight: 900;
+  line-height: 0.92; letter-spacing: -2px;
+  color: var(--b); margin-bottom: 32px;
+}
+
+.ms-copy {
+  font-family: var(--cg);
+  font-size: clamp(16px,2vw,20px);
+  font-style: italic; line-height: 1.7;
+  color: rgba(255,255,255,0.85); margin-bottom: 40px;
+}
+
+.ms-conditions { display: flex; flex-direction: column; }
+.ms-cond {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.14);
+}
+.ms-cond-icon { color: rgba(255,255,255,0.55); font-size: 12px; flex-shrink: 0; margin-top: 3px; }
+.ms-cond-text {
+  font-family: var(--cg);
+  font-size: 15px; font-style: italic;
+  line-height: 1.6; color: rgba(255,255,255,0.8);
+}
+
+.ms-form { display: flex; flex-direction: column; gap: 18px; }
+
+.form-field { display: flex; flex-direction: column; gap: 8px; }
+.form-field label {
+  font-size: 8px; letter-spacing: 3px;
+  text-transform: uppercase; color: rgba(255,255,255,0.45);
+}
+.form-field input,
+.form-field textarea,
+.form-field select {
+  font-family: var(--cg);
+  font-size: 16px; font-style: italic;
+  color: var(--b);
+  background: rgba(0,0,0,0.18);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 13px 16px; outline: none;
+  transition: border-color 0.2s;
+  -webkit-appearance: none; appearance: none;
+}
+.form-field input::placeholder,
+.form-field textarea::placeholder { color: rgba(255,255,255,0.3); }
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus { border-color: rgba(255,255,255,0.65); }
+.form-field textarea { resize: vertical; min-height: 110px; }
+.form-field select option { background: #1a0010; color: var(--b); }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+.form-submit {
+  font-family: var(--ub);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--c); background: var(--b);
+  border: none; padding: 18px 32px;
+  cursor: pointer; align-self: flex-start;
+  margin-top: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+.form-submit:hover { background: var(--n); color: var(--b); }
+.form-submit:disabled {
+  background: rgba(0,0,0,0.25);
+  color: rgba(255,255,255,0.5);
+  cursor: default;
+}
+
+/* ── NEWSLETTER ── */
+#newsletter {
+  background: var(--n);
+  padding: 0;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.nl-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.nl-left {
+  padding: 96px 10vw 96px 10vw;
+  background: var(--n);
+  border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+.nl-label {
+  font-size: 8px; letter-spacing: 4px; text-transform: uppercase;
+  color: rgba(255,255,255,0.2); margin-bottom: 24px;
+}
+
+.nl-title {
+  font-family: var(--ub);
+  font-size: clamp(32px,4vw,52px);
+  font-weight: 900;
+  letter-spacing: -2px; line-height: 0.9;
+  color: var(--b); margin-bottom: 28px;
+}
+.nl-title em { font-style: normal; color: var(--c); }
+
+.nl-desc {
+  font-family: var(--cg);
+  font-size: 16px; font-style: italic;
+  line-height: 1.7; color: rgba(255,255,255,0.4);
+  max-width: 320px;
+}
+
+.nl-right {
+  padding: 96px 8vw 96px 8vw;
+  display: flex; flex-direction: column; justify-content: center; gap: 24px;
+}
+
+.nl-platform {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+}
+
+/* Substack widget overrides */
+#custom-substack-embed .substack-widget {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+#custom-substack-embed input[type="email"] {
+  font-family: var(--cg) !important;
+  font-style: italic !important;
+  font-size: 16px !important;
+  background: rgba(255,255,255,0.04) !important;
+  border: 1px solid rgba(255,255,255,0.15) !important;
+  color: var(--b) !important;
+  padding: 14px 16px !important;
+  border-radius: 0 !important;
+  width: 100% !important;
+}
+#custom-substack-embed button {
+  font-family: var(--ub) !important;
+  font-size: 9px !important; font-weight: 700 !important;
+  letter-spacing: 3px !important; text-transform: uppercase !important;
+  background: var(--c) !important;
+  color: var(--b) !important;
+  border: none !important;
+  padding: 14px 24px !important;
+  border-radius: 0 !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+}
+
+.nl-disclaimer {
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.15); margin-top: 4px;
+}
+
+/* ── RESPONSIVE HOME ── */
+@media (max-width: 900px) {
+  #home { grid-template-columns: 1fr; }
+  .hero-left { padding: 120px 24px 48px; }
+  .hero-right { min-height: 50vh; padding: 40px 24px; }
+
+  #quienes { padding: 80px 6vw; }
+  .qs-grid { grid-template-columns: 1fr; gap: 48px; }
+  .nombre-strip { grid-template-columns: 1fr; padding: 48px 24px; gap: 36px; }
+
+  #novedades { padding: 80px 6vw; }
+  .novedades-grid { grid-template-columns: 1fr; }
+
+  .nl-inner { grid-template-columns: 1fr; }
+  .nl-left { padding: 64px 6vw; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .nl-right { padding: 48px 6vw; }
+  .novedad-card { min-height: auto; }
+  #novedades > .section-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+
+  #manuscrito { padding: 80px 6vw; }
+  .ms-grid { grid-template-columns: 1fr; gap: 48px; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ MOBILE MENU ══ -->
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mobile-close" id="mobileClose">✕</span>
+  <a href="#home" onclick="closeMobile()">Home</a>
+  <a href="#quienes" onclick="closeMobile()">Quiénes somos</a>
+  <a href="catalogo/colecciones.html" onclick="closeMobile()">Colecciones</a>
+  <a href="catalogo/libros.html" onclick="closeMobile()">Todos los libros</a>
+  <a href="catalogo/autores.html" onclick="closeMobile()">Autores</a>
+  <a href="#manuscrito" onclick="closeMobile()">Tengo cosas para decir</a>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <span class="sil">RI</span><span class="sil-dot">·</span><span class="sil-accent">MAY</span><span class="sil-dot">·</span><span class="sil">KU</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#home" class="active">Home</a></li>
+    <li><a href="#quienes">Quiénes somos</a></li>
+    <li class="nav-item-dropdown" id="dropdownItem">
+      <a href="catalogo/colecciones.html" class="dropdown-toggle" id="dropdownToggle">
+        Catálogo <span class="dropdown-arrow" id="dropdownArrow"></span>
+      </a>
+      <div class="dropdown-menu" id="dropdownMenu">
+        <a href="catalogo/colecciones.html">Colecciones</a>
+        <a href="catalogo/libros.html">Todos los libros</a>
+        <a href="catalogo/autores.html">Autores</a>
+      </div>
+    </li>
+    <li><a href="#manuscrito" class="nav-cta">Tengo cosas para decir</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ══ HOME ══ -->
+<section id="home">
+  <div class="hero-left">
+    <div class="hero-logo-wrap">
+      <div class="hero-sub">Ediciones</div>
+      <div class="hero-syl">
+        <span class="hs hs-w">RI</span>
+        <span class="hs hs-r">MAY</span>
+        <span class="hs hs-w">KU</span>
+      </div>
+    </div>
+    <div class="hero-foot">Animarse a hablar.</div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-right-content">
+      <div class="hero-tagline">La voz que se anima a hablar cuando nadie le dio permiso.</div>
+      <div class="hero-def">
+        Quechua / Quichua santiagueño<br>
+        Ri · may · ku — tres sílabas<br>
+        Literatura · Ensayo · Argentina
+      </div>
+      <div class="hero-cta-wrap">
+        <a href="catalogo/colecciones.html" class="btn-outline">Ver catálogo</a>
+        <a href="#manuscrito" class="btn-outline">Enviar manuscrito</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Ver más</span>
+  </div>
+</section>
+
+<!-- ══ QUIÉNES SOMOS ══ -->
+<section id="quienes">
+  <div class="qs-grid">
+    <div class="qs-left reveal">
+      <h2>Darle voz<br>a los que<br><em>se animan</em><br>a decir.</h2>
+      <div class="qs-quote">Publicamos a quienes se animaron a decir lo que nadie más iba a decir por ellos.</div>
+    </div>
+    <div class="qs-right reveal reveal-d2">
+      <div class="pilar">
+        <div class="pilar-title">Raíz</div>
+        <div class="pilar-desc">Lo ancestral no es decoración. El nombre quechua no es folklore: es el programa de la editorial.</div>
+      </div>
+      <div class="pilar">
+        <div class="pilar-title">Voz</div>
+        <div class="pilar-desc">Publicamos a quienes tienen algo que decir y no encontraron quién los escuche.</div>
+      </div>
+      <div class="pilar">
+        <div class="pilar-title">Territorio</div>
+        <div class="pilar-desc">Argentina como punto de partida, no como límite. Lo local bien contado siempre llega.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nombre-strip reveal">
+    <div class="nb-syl">
+      <span style="color:var(--b);">RI</span><span class="nb-dot">·</span><br>
+      <span style="color:var(--c);">MAY</span><span class="nb-dot">·</span><br>
+      <span style="color:var(--b);">KU</span>
+    </div>
+    <div>
+      <div class="nb-word">El nombre</div>
+      <div class="nb-def">En quechua, el sufijo -ku es el gesto de quien se da a sí mismo el permiso de decir. Rimayku es el momento exacto en que una voz que no tenía lugar decide tenerlo.</div>
+      <div class="nb-tags">
+        <div class="nb-tag"><div class="nb-tag-k">Lengua</div><div class="nb-tag-v">Quechua / Quichua santiagueño</div></div>
+        <div class="nb-tag"><div class="nb-tag-k">Morfología</div><div class="nb-tag-v">Rimay (hablar) + -ku (permiso interno)</div></div>
+        <div class="nb-tag"><div class="nb-tag-k">Pronunciación</div><div class="nb-tag-v">Ri · may · ku</div></div>
+        <div class="nb-tag"><div class="nb-tag-k">Significado</div><div class="nb-tag-v">Animarse a hablar</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NOVEDADES ══ -->
+<section id="novedades">
+  <div class="section-header reveal">
+    <h2>Nove<em>dades</em></h2>
+    <a href="#" class="novedades-all">Ver todas →</a>
+  </div>
+
+  <div class="novedades-grid">
+    <div class="novedad-card featured reveal">
+      <div class="nov-meta">
+        <span class="nov-tag lanzamiento">Lanzamiento</span>
+        <span class="nov-date">Abril 2025</span>
+      </div>
+      <div>
+        <div class="nov-title large">El silencio que habla ya tiene papel.</div>
+        <div class="nov-excerpt">La primera novela de Lucía Mamani llega a librerías esta semana. Escrita desde adentro del monte y desde adentro del cuerpo, no pide permiso para existir.</div>
+      </div>
+      <div class="nov-author">Lucía Mamani · Voces del monte</div>
+    </div>
+
+    <div class="novedad-card secondary reveal reveal-d1">
+      <div class="nov-meta">
+        <span class="nov-tag evento">Evento</span>
+        <span class="nov-date">Mayo 2025</span>
+      </div>
+      <div>
+        <div class="nov-title small">Presentación en la Feria del Libro de Buenos Aires</div>
+        <div class="nov-excerpt">Rimayku estará en el Stand 423. Presentamos tres títulos y abrimos la convocatoria para el segundo semestre.</div>
+      </div>
+      <div class="nov-author">Feria del Libro · Pabellón Azul</div>
+    </div>
+
+    <div class="novedad-card secondary reveal reveal-d2">
+      <div class="nov-meta">
+        <span class="nov-tag editorial">Nota editorial</span>
+        <span class="nov-date">Marzo 2025</span>
+      </div>
+      <div>
+        <div class="nov-title small">Convocatoria abierta: segundo semestre 2025</div>
+        <div class="nov-excerpt">Buscamos narrativa, poesía y ensayo. Leemos todo. Respondemos en noventa días.</div>
+      </div>
+      <div class="nov-author">Ediciones Rimayku</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NEWSLETTER ══ -->
+<section id="newsletter">
+  <div class="nl-inner">
+    <div class="nl-left reveal">
+      <div class="nl-label">Newsletter</div>
+      <h2 class="nl-title">Cartas<br>de la<br><em>editorial</em></h2>
+      <div class="nl-desc">Una vez por mes: lo que estamos leyendo, lo que estamos publicando y lo que todavía no podemos decir.</div>
+    </div>
+    <div class="nl-right reveal reveal-d2">
+      <div class="nl-platform">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;opacity:0.5;">
+          <rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M2 8l10 7 10-7" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        <span>Enviado por Substack</span>
+      </div>
+      <!-- Substack widget — reemplazá "rimayku" con tu nombre de publicación -->
+      <div id="custom-substack-embed"></div>
+      <div class="nl-disclaimer">Sin spam. Podés darte de baja cuando quieras.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TENGO COSAS PARA DECIR ══ -->
+<section id="manuscrito">
+  <div class="ms-grid">
+    <div class="ms-left reveal">
+      <h2>Tengo cosas<br>para decir.</h2>
+      <div class="ms-copy">¿Escribiste algo y no encontrás quién te escuche? Mandanos tu manuscrito. Leemos todo.</div>
+      <div class="ms-conditions">
+        <div class="ms-cond">
+          <div class="ms-cond-icon">✦</div>
+          <div class="ms-cond-text">Leemos narrativa, poesía y ensayo. Géneros sin mezclar.</div>
+        </div>
+        <div class="ms-cond">
+          <div class="ms-cond-icon">✦</div>
+          <div class="ms-cond-text">No importa si es tu primera obra. Importa que tengas algo que decir.</div>
+        </div>
+        <div class="ms-cond">
+          <div class="ms-cond-icon">✦</div>
+          <div class="ms-cond-text">Respondemos en un plazo de 90 días. Sin excepciones.</div>
+        </div>
+        <div class="ms-cond">
+          <div class="ms-cond-icon">✦</div>
+          <div class="ms-cond-text">Buscamos voces que no hayan encontrado su editorial todavía.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-right reveal reveal-d2">
+      <form class="ms-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-field">
+            <label>Nombre</label>
+            <input type="text" placeholder="Tu nombre" required>
+          </div>
+          <div class="form-field">
+            <label>Apellido</label>
+            <input type="text" placeholder="Tu apellido" required>
+          </div>
+        </div>
+        <div class="form-field">
+          <label>Correo electrónico</label>
+          <input type="email" placeholder="tu@correo.com" required>
+        </div>
+        <div class="form-field">
+          <label>Género literario</label>
+          <select required>
+            <option value="" disabled selected>Seleccioná un género</option>
+            <option>Narrativa</option>
+            <option>Poesía</option>
+            <option>Ensayo</option>
+            <option>No ficción</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Título de la obra</label>
+          <input type="text" placeholder="Título del manuscrito" required>
+        </div>
+        <div class="form-field">
+          <label>¿Qué quisiste decir con este libro?</label>
+          <textarea placeholder="Contanos en tus palabras de qué se trata." required></textarea>
+        </div>
+        <button type="submit" class="form-submit" id="submitBtn">Animarse a decirlo →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">
+        <span class="sil">RI</span><span class="sil-dot">·</span><span class="sil-accent">MAY</span><span class="sil-dot">·</span><span class="sil">KU</span>
+      </div>
+      <div class="footer-tagline">Editorial argentina. Publicamos la voz que se animó a decirlo.</div>
+    </div>
+    <div>
+      <div class="footer-col-title">Editorial</div>
+      <div class="footer-links">
+        <a href="#quienes">Quiénes somos</a>
+        <a href="catalogo/colecciones.html">Colecciones</a>
+        <a href="catalogo/libros.html">Todos los libros</a>
+        <a href="#manuscrito">Enviar manuscrito</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Contacto</div>
+      <div class="footer-links">
+        <a href="mailto:hola@rimayku.com.ar">hola@rimayku.com.ar</a>
+        <a href="#">rimayku.com.ar</a>
+        <a href="#">Buenos Aires, Argentina</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Ediciones Rimayku · Ri · may · ku</div>
+    <div class="footer-social">
+      <a href="#">Instagram</a>
+      <a href="#">TikTok</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Dropdown — click-based
+const dropItem   = document.getElementById('dropdownItem');
+const dropToggle = document.getElementById('dropdownToggle');
+
+dropToggle.addEventListener('click', (e) => {
+  // Only intercept the click to toggle if we're not on mobile
+  if (window.innerWidth <= 900) return;
+  e.preventDefault();
+  dropItem.classList.toggle('open');
+});
+
+document.addEventListener('click', (e) => {
+  if (!dropItem.contains(e.target)) {
+    dropItem.classList.remove('open');
+  }
+});
+
+// Mobile menu
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.add('open');
+});
+document.getElementById('mobileClose').addEventListener('click', closeMobile);
+function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+// Form
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  btn.textContent = 'Manuscrito recibido ✦';
+  btn.disabled = true;
+}
+</script>
+
+<!-- Substack newsletter widget — reemplazá "rimayku" con el nombre de tu publicación -->
+<script>
+window.CustomSubstackWidget = {
+  substackUrl: "rimayku.substack.com",
+  placeholder: "tu@correo.com",
+  buttonText: "Suscribirse",
+  theme: "custom",
+  colors: {
+    primary: "#C4003A",
+    input: "#1a1a1a",
+    email: "#FAFAFA",
+    text: "#FAFAFA",
+  }
+};
+</script>
+<script src="https://substackapi.com/widget.js" async></script>
+</body>
+</html>

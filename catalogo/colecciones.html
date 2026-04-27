@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colecciones — Ediciones Rimayku</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.colecciones-section {
+  padding: 64px 10vw 120px;
+}
+
+.colecciones-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 80px;
+}
+
+.coleccion-card {
+  padding: 52px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 340px;
+  cursor: default;
+  transition: transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.coleccion-card:hover { transform: translateY(-6px); }
+
+.col-number {
+  font-family: var(--ub);
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 4px; opacity: 0.3;
+}
+
+.col-body {}
+
+.col-name {
+  font-family: var(--ub);
+  font-size: clamp(22px,2.5vw,30px);
+  font-weight: 900;
+  letter-spacing: -0.5px; line-height: 1;
+  margin-bottom: 16px;
+}
+
+.col-desc {
+  font-family: var(--cg);
+  font-size: 15px; font-style: italic;
+  line-height: 1.65; opacity: 0.7;
+}
+
+.col-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 32px;
+}
+
+.col-count {
+  font-size: 8px; letter-spacing: 3px;
+  text-transform: uppercase; opacity: 0.3;
+}
+
+.col-link {
+  font-family: var(--ub);
+  font-size: 8px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  text-decoration: none;
+  padding: 8px 14px;
+  border: 1px solid;
+  transition: all 0.2s;
+}
+
+/* Colección 01 — Ceibo */
+.col-ceibo {
+  background: var(--c);
+  color: var(--b);
+}
+.col-ceibo .col-link {
+  color: rgba(255,255,255,0.7);
+  border-color: rgba(255,255,255,0.25);
+}
+.col-ceibo .col-link:hover {
+  color: var(--b);
+  border-color: rgba(255,255,255,0.8);
+  background: rgba(0,0,0,0.15);
+}
+
+/* Colección 02 — Noche */
+.col-noche {
+  background: var(--n);
+  color: var(--b);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+.col-noche .col-link {
+  color: rgba(255,255,255,0.45);
+  border-color: rgba(255,255,255,0.12);
+}
+.col-noche .col-link:hover {
+  color: var(--c);
+  border-color: var(--c);
+}
+
+/* Colección 03 — Blanco */
+.col-blanco {
+  background: var(--b);
+  color: var(--n);
+}
+.col-blanco .col-number { color: var(--n); opacity: 0.2; }
+.col-blanco .col-desc { color: rgba(17,17,17,0.55); opacity: 1; }
+.col-blanco .col-count { color: var(--n); opacity: 0.25; }
+.col-blanco .col-link {
+  color: rgba(17,17,17,0.5);
+  border-color: rgba(17,17,17,0.15);
+}
+.col-blanco .col-link:hover {
+  color: var(--c);
+  border-color: var(--c);
+}
+
+/* Manifiesto de colecciones */
+.col-manifiesto {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 56px 64px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.col-mf-label {
+  font-size: 8px; letter-spacing: 4px;
+  text-transform: uppercase; color: rgba(255,255,255,0.2);
+  margin-bottom: 16px; display: block;
+}
+
+.col-mf-title {
+  font-family: var(--ub);
+  font-size: clamp(24px,3vw,36px);
+  font-weight: 900;
+  letter-spacing: -1px; line-height: 0.95;
+  color: var(--b);
+}
+.col-mf-title em { font-style: normal; color: var(--c); }
+
+.col-mf-text {
+  font-family: var(--cg);
+  font-size: 17px; font-style: italic;
+  line-height: 1.75; color: rgba(255,255,255,0.5);
+}
+
+@media (max-width: 900px) {
+  .colecciones-section { padding: 48px 6vw 80px; }
+  .colecciones-grid { grid-template-columns: 1fr; }
+  .coleccion-card { min-height: auto; }
+  .col-manifiesto { grid-template-columns: 1fr; padding: 36px 28px; gap: 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ MOBILE MENU ══ -->
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mobile-close" id="mobileClose">✕</span>
+  <a href="../index.html" onclick="closeMobile()">Home</a>
+  <a href="../index.html#quienes" onclick="closeMobile()">Quiénes somos</a>
+  <a href="colecciones.html" onclick="closeMobile()">Colecciones</a>
+  <a href="libros.html" onclick="closeMobile()">Todos los libros</a>
+  <a href="autores.html" onclick="closeMobile()">Autores</a>
+  <a href="../index.html#manuscrito" onclick="closeMobile()">Tengo cosas para decir</a>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav id="nav" class="scrolled">
+  <a href="../index.html" class="nav-logo">
+    <span class="sil">RI</span><span class="sil-dot">·</span><span class="sil-accent">MAY</span><span class="sil-dot">·</span><span class="sil">KU</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../index.html#quienes">Quiénes somos</a></li>
+    <li class="nav-item-dropdown" id="dropdownItem">
+      <a href="colecciones.html" class="dropdown-toggle active" id="dropdownToggle">
+        Catálogo <span class="dropdown-arrow" id="dropdownArrow"></span>
+      </a>
+      <div class="dropdown-menu" id="dropdownMenu">
+        <a href="colecciones.html" class="active">Colecciones</a>
+        <a href="libros.html">Todos los libros</a>
+        <a href="autores.html">Autores</a>
+      </div>
+    </li>
+    <li><a href="../index.html#manuscrito" class="nav-cta">Tengo cosas para decir</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ══ PAGE HERO ══ -->
+<div class="page-hero">
+  <h1 class="reveal">Colec<em>ciones</em></h1>
+  <p class="reveal reveal-d1">Tres líneas editoriales. Una sola voz.</p>
+</div>
+
+<!-- ══ SUB-NAV ══ -->
+<div class="catalog-subnav">
+  <a href="colecciones.html" class="active">Colecciones</a>
+  <a href="libros.html">Todos los libros</a>
+  <a href="autores.html">Autores</a>
+</div>
+
+<!-- ══ COLECCIONES ══ -->
+<div class="colecciones-section">
+
+  <div class="colecciones-grid">
+
+    <div class="coleccion-card col-ceibo reveal">
+      <div class="col-number">01</div>
+      <div class="col-body">
+        <div class="col-name">Voces<br>del monte</div>
+        <div class="col-desc">Narrativa y poesía que viene del interior profundo. La tierra como lengua, el paisaje como argumento.</div>
+      </div>
+      <div class="col-footer">
+        <div class="col-count">4 títulos</div>
+        <a href="libros.html" class="col-link">Ver libros →</a>
+      </div>
+    </div>
+
+    <div class="coleccion-card col-noche reveal reveal-d1">
+      <div class="col-number" style="color:rgba(255,255,255,0.2);">02</div>
+      <div class="col-body">
+        <div class="col-name">La palabra<br>prestada</div>
+        <div class="col-desc">Ensayo y no ficción. Voces que piensan en voz alta sobre lo que nadie quiere debatir.</div>
+      </div>
+      <div class="col-footer">
+        <div class="col-count">3 títulos</div>
+        <a href="libros.html" class="col-link">Ver libros →</a>
+      </div>
+    </div>
+
+    <div class="coleccion-card col-blanco reveal reveal-d2">
+      <div class="col-number">03</div>
+      <div class="col-body">
+        <div class="col-name" style="color:var(--n);">Decir<br>primero</div>
+        <div class="col-desc">Primeras obras. Para quienes escriben por primera vez como si fuera la última.</div>
+      </div>
+      <div class="col-footer">
+        <div class="col-count">2 títulos</div>
+        <a href="libros.html" class="col-link">Ver libros →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-manifiesto reveal">
+    <div>
+      <span class="col-mf-label">Por qué colecciones</span>
+      <div class="col-mf-title">Tres caminos,<br>una sola<br><em>dirección.</em></div>
+    </div>
+    <div class="col-mf-text">
+      No publicamos títulos sueltos. Cada libro entra en una línea porque la colección lo sostiene y lo hace legible junto a las otras voces que lo rodean. Las colecciones no son categorías: son compromisos editoriales. Deciden qué tipo de libro puede existir dentro de Rimayku y en qué conversación entra.
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">
+        <span class="sil">RI</span><span class="sil-dot">·</span><span class="sil-accent">MAY</span><span class="sil-dot">·</span><span class="sil">KU</span>
+      </div>
+      <div class="footer-tagline">Editorial argentina. Publicamos la voz que se animó a decirlo.</div>
+    </div>
+    <div>
+      <div class="footer-col-title">Editorial</div>
+      <div class="footer-links">
+        <a href="../index.html#quienes">Quiénes somos</a>
+        <a href="colecciones.html">Colecciones</a>
+        <a href="libros.html">Todos los libros</a>
+        <a href="../index.html#manuscrito">Enviar manuscrito</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Contacto</div>
+      <div class="footer-links">
+        <a href="mailto:hola@rimayku.com.ar">hola@rimayku.com.ar</a>
+        <a href="#">rimayku.com.ar</a>
+        <a href="#">Buenos Aires, Argentina</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Ediciones Rimayku · Ri · may · ku</div>
+    <div class="footer-social">
+      <a href="#">Instagram</a>
+      <a href="#">TikTok</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav stays scrolled on interior pages
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY <= 40) nav.classList.remove('scrolled');
+  else nav.classList.add('scrolled');
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Dropdown — click-based
+const dropItem   = document.getElementById('dropdownItem');
+const dropToggle = document.getElementById('dropdownToggle');
+
+dropToggle.addEventListener('click', (e) => {
+  if (window.innerWidth <= 900) return;
+  e.preventDefault();
+  dropItem.classList.toggle('open');
+});
+
+document.addEventListener('click', (e) => {
+  if (!dropItem.contains(e.target)) dropItem.classList.remove('open');
+});
+
+// Mobile menu
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.add('open');
+});
+document.getElementById('mobileClose').addEventListener('click', closeMobile);
+function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+</script>
+</body>
+</html>
