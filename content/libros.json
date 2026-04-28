@@ -1,0 +1,76 @@
+{
+  "items": [
+    {
+      "titulo": "El silencio que habla",
+      "autor": "Lucía Mamani",
+      "coleccion": "voces-del-monte",
+      "anio": "2025",
+      "nuevo": true,
+      "color_fondo": "#C4003A",
+      "color_texto": "#FAFAFA"
+    },
+    {
+      "titulo": "Desde el fondo del río",
+      "autor": "Omar Sayago",
+      "coleccion": "la-palabra-prestada",
+      "anio": "2024",
+      "nuevo": false,
+      "color_fondo": "#1a1a1a",
+      "color_texto": "#FAFAFA"
+    },
+    {
+      "titulo": "Nacer dos veces",
+      "autor": "Verónica Ajmat",
+      "coleccion": "decir-primero",
+      "anio": "2024",
+      "nuevo": false,
+      "color_fondo": "#2a0a12",
+      "color_texto": "#FAFAFA"
+    },
+    {
+      "titulo": "Lo que no se nombra",
+      "autor": "Juan Chávez",
+      "coleccion": "voces-del-monte",
+      "anio": "2023",
+      "nuevo": false,
+      "color_fondo": "#0d0d0d",
+      "color_texto": "#FAFAFA"
+    },
+    {
+      "titulo": "El idioma de los otros",
+      "autor": "Marta Ruiz",
+      "coleccion": "la-palabra-prestada",
+      "anio": "2023",
+      "nuevo": false,
+      "color_fondo": "#111111",
+      "color_texto": "#FAFAFA"
+    },
+    {
+      "titulo": "Tierra sin nombre",
+      "autor": "Pablo Tolaba",
+      "coleccion": "voces-del-monte",
+      "anio": "2023",
+      "nuevo": false,
+      "color_fondo": "#3a000f",
+      "color_texto": "#FAFAFA"
+    },
+    {
+      "titulo": "Primeras palabras",
+      "autor": "Carla Moreno",
+      "coleccion": "decir-primero",
+      "anio": "2022",
+      "nuevo": false,
+      "color_fondo": "#FAFAFA",
+      "color_texto": "#111111"
+    },
+    {
+      "titulo": "Hablar en silencio",
+      "autor": "Sergio Coria",
+      "coleccion": "la-palabra-prestada",
+      "anio": "2022",
+      "nuevo": false,
+      "color_fondo": "#0a0a0a",
+      "color_texto": "#FAFAFA"
+    }
+  ]
+}

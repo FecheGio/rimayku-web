@@ -664,43 +664,7 @@
     <a href="#" class="novedades-all">Ver todas →</a>
   </div>
 
-  <div class="novedades-grid">
-    <div class="novedad-card featured reveal">
-      <div class="nov-meta">
-        <span class="nov-tag lanzamiento">Lanzamiento</span>
-        <span class="nov-date">Abril 2025</span>
-      </div>
-      <div>
-        <div class="nov-title large">El silencio que habla ya tiene papel.</div>
-        <div class="nov-excerpt">La primera novela de Lucía Mamani llega a librerías esta semana. Escrita desde adentro del monte y desde adentro del cuerpo, no pide permiso para existir.</div>
-      </div>
-      <div class="nov-author">Lucía Mamani · Voces del monte</div>
-    </div>
-
-    <div class="novedad-card secondary reveal reveal-d1">
-      <div class="nov-meta">
-        <span class="nov-tag evento">Evento</span>
-        <span class="nov-date">Mayo 2025</span>
-      </div>
-      <div>
-        <div class="nov-title small">Presentación en la Feria del Libro de Buenos Aires</div>
-        <div class="nov-excerpt">Rimayku estará en el Stand 423. Presentamos tres títulos y abrimos la convocatoria para el segundo semestre.</div>
-      </div>
-      <div class="nov-author">Feria del Libro · Pabellón Azul</div>
-    </div>
-
-    <div class="novedad-card secondary reveal reveal-d2">
-      <div class="nov-meta">
-        <span class="nov-tag editorial">Nota editorial</span>
-        <span class="nov-date">Marzo 2025</span>
-      </div>
-      <div>
-        <div class="nov-title small">Convocatoria abierta: segundo semestre 2025</div>
-        <div class="nov-excerpt">Buscamos narrativa, poesía y ensayo. Leemos todo. Respondemos en noventa días.</div>
-      </div>
-      <div class="nov-author">Ediciones Rimayku</div>
-    </div>
-  </div>
+  <div class="novedades-grid" id="novedadesGrid"></div>
 </section>
 
 <!-- ══ NEWSLETTER ══ -->
@@ -829,6 +793,35 @@
 </footer>
 
 <script>
+// Novedades desde JSON
+const TIPO_LABELS = { lanzamiento: 'Lanzamiento', evento: 'Evento', editorial: 'Nota editorial' };
+const NOV_DELAYS = ['', 'reveal-d1', 'reveal-d2'];
+
+function renderNovedades(items) {
+  const grid = document.getElementById('novedadesGrid');
+  grid.innerHTML = items.map((n, i) => {
+    const featured = n.destacada;
+    return `
+      <div class="novedad-card ${featured ? 'featured' : 'secondary'} reveal ${NOV_DELAYS[i]}">
+        <div class="nov-meta">
+          <span class="nov-tag ${n.tipo}">${TIPO_LABELS[n.tipo]}</span>
+          <span class="nov-date">${n.fecha}</span>
+        </div>
+        <div>
+          <div class="nov-title ${featured ? 'large' : 'small'}">${n.titulo}</div>
+          <div class="nov-excerpt">${n.excerpt}</div>
+        </div>
+        <div class="nov-author">${n.autor_pie}</div>
+      </div>`;
+  }).join('');
+  grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
+fetch('content/novedades.json')
+  .then(r => r.json())
+  .then(data => renderNovedades(data.items))
+  .catch(() => {});
+
 // Nav scroll
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {

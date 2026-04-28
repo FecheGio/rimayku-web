@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "tipo": "lanzamiento",
+      "fecha": "Abril 2025",
+      "titulo": "El silencio que habla ya tiene papel.",
+      "excerpt": "La primera novela de Lucía Mamani llega a librerías esta semana. Escrita desde adentro del monte y desde adentro del cuerpo, no pide permiso para existir.",
+      "autor_pie": "Lucía Mamani · Voces del monte",
+      "destacada": true
+    },
+    {
+      "tipo": "evento",
+      "fecha": "Mayo 2025",
+      "titulo": "Presentación en la Feria del Libro de Buenos Aires",
+      "excerpt": "Rimayku estará en el Stand 423. Presentamos tres títulos y abrimos la convocatoria para el segundo semestre.",
+      "autor_pie": "Feria del Libro · Pabellón Azul",
+      "destacada": false
+    },
+    {
+      "tipo": "editorial",
+      "fecha": "Marzo 2025",
+      "titulo": "Convocatoria abierta: segundo semestre 2025",
+      "excerpt": "Buscamos narrativa, poesía y ensayo. Leemos todo. Respondemos en noventa días.",
+      "autor_pie": "Ediciones Rimayku",
+      "destacada": false
+    }
+  ]
+}

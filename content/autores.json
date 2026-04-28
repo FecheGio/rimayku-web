@@ -1,0 +1,76 @@
+{
+  "items": [
+    {
+      "nombre": "Lucía Mamani",
+      "iniciales": "LM",
+      "coleccion": "voces-del-monte",
+      "bio": "Nació en Tilcara, creció entre dos idiomas y aprendió a escribir para no olvidar ninguno. Su primera novela no pide permiso para existir.",
+      "libros": [
+        { "titulo": "El silencio que habla", "anio": "2025" }
+      ]
+    },
+    {
+      "nombre": "Omar Sayago",
+      "iniciales": "OS",
+      "coleccion": "la-palabra-prestada",
+      "bio": "Periodista y ensayista formado en Santiago del Estero. Escribe sobre lo que preferiríamos no saber. Sus columnas circularon más de lo que se imprimieron.",
+      "libros": [
+        { "titulo": "Desde el fondo del río", "anio": "2024" }
+      ]
+    },
+    {
+      "nombre": "Verónica Ajmat",
+      "iniciales": "VA",
+      "coleccion": "decir-primero",
+      "bio": "Tucumana. Escribe desde adentro del cuerpo. Su primera novela es también un manifiesto, aunque ella prefiere no llamarla así.",
+      "libros": [
+        { "titulo": "Nacer dos veces", "anio": "2024" }
+      ]
+    },
+    {
+      "nombre": "Juan Chávez",
+      "iniciales": "JC",
+      "coleccion": "voces-del-monte",
+      "bio": "Poeta y narrador del Chaco. Escribe en castellano pero piensa en guaraní. Lo que no se puede traducir lo convierte en imagen.",
+      "libros": [
+        { "titulo": "Lo que no se nombra", "anio": "2023" }
+      ]
+    },
+    {
+      "nombre": "Marta Ruiz",
+      "iniciales": "MR",
+      "coleccion": "la-palabra-prestada",
+      "bio": "Lingüista y ensayista. Investigó durante quince años el quichua santiagueño antes de escribir el libro que nadie del ámbito académico quiso publicar.",
+      "libros": [
+        { "titulo": "El idioma de los otros", "anio": "2023" }
+      ]
+    },
+    {
+      "nombre": "Pablo Tolaba",
+      "iniciales": "PT",
+      "coleccion": "voces-del-monte",
+      "bio": "Jujeño. Criado entre la puna y la ciudad, escribe desde la grieta de los dos. Sus poemas se leyeron en voz alta antes de escribirse.",
+      "libros": [
+        { "titulo": "Tierra sin nombre", "anio": "2023" }
+      ]
+    },
+    {
+      "nombre": "Carla Moreno",
+      "iniciales": "CM",
+      "coleccion": "decir-primero",
+      "bio": "Salta, 1994. Maestra rural. Empezó a escribir cuando dejó de tener tiempo para escribir. Su libro salió antes de que ella se animara a llamarse escritora.",
+      "libros": [
+        { "titulo": "Primeras palabras", "anio": "2022" }
+      ]
+    },
+    {
+      "nombre": "Sergio Coria",
+      "iniciales": "SC",
+      "coleccion": "la-palabra-prestada",
+      "bio": "Músico reconvertido en ensayista. Escribe sobre el silencio con la precisión de quien sabe cuándo no tocar. Sus textos piensan en voz baja.",
+      "libros": [
+        { "titulo": "Hablar en silencio", "anio": "2022" }
+      ]
+    }
+  ]
+}

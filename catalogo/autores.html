@@ -204,121 +204,7 @@
 <!-- ══ AUTORES ══ -->
 <div class="autores-section">
 
-  <div class="autores-grid">
-
-    <div class="autor-card col-voces reveal">
-      <div class="autor-header">
-        <div class="autor-initials">LM</div>
-        <div class="autor-meta">
-          <div class="autor-name">Lucía Mamani</div>
-          <div class="autor-coleccion">Voces del monte</div>
-        </div>
-      </div>
-      <div class="autor-bio">Nació en Tilcara, creció entre dos idiomas y aprendió a escribir para no olvidar ninguno. Su primera novela no pide permiso para existir.</div>
-      <div class="autor-libros">
-        <div class="autor-libro-item">El silencio que habla <span>2025</span></div>
-      </div>
-    </div>
-
-    <div class="autor-card col-palabra reveal reveal-d1">
-      <div class="autor-header">
-        <div class="autor-initials">OS</div>
-        <div class="autor-meta">
-          <div class="autor-name">Omar Sayago</div>
-          <div class="autor-coleccion">La palabra prestada</div>
-        </div>
-      </div>
-      <div class="autor-bio">Periodista y ensayista formado en Santiago del Estero. Escribe sobre lo que preferiríamos no saber. Sus columnas circularon más de lo que se imprimieron.</div>
-      <div class="autor-libros">
-        <div class="autor-libro-item">Desde el fondo del río <span>2024</span></div>
-      </div>
-    </div>
-
-    <div class="autor-card col-decir reveal reveal-d2">
-      <div class="autor-header">
-        <div class="autor-initials">VA</div>
-        <div class="autor-meta">
-          <div class="autor-name">Verónica Ajmat</div>
-          <div class="autor-coleccion">Decir primero</div>
-        </div>
-      </div>
-      <div class="autor-bio">Tucumana. Escribe desde adentro del cuerpo. Su primera novela es también un manifiesto, aunque ella prefiere no llamarla así.</div>
-      <div class="autor-libros">
-        <div class="autor-libro-item">Nacer dos veces <span>2024</span></div>
-      </div>
-    </div>
-
-    <div class="autor-card col-voces reveal">
-      <div class="autor-header">
-        <div class="autor-initials">JC</div>
-        <div class="autor-meta">
-          <div class="autor-name">Juan Chávez</div>
-          <div class="autor-coleccion">Voces del monte</div>
-        </div>
-      </div>
-      <div class="autor-bio">Poeta y narrador del Chaco. Escribe en castellano pero piensa en guaraní. Lo que no se puede traducir lo convierte en imagen.</div>
-      <div class="autor-libros">
-        <div class="autor-libro-item">Lo que no se nombra <span>2023</span></div>
-      </div>
-    </div>
-
-    <div class="autor-card col-palabra reveal reveal-d1">
-      <div class="autor-header">
-        <div class="autor-initials">MR</div>
-        <div class="autor-meta">
-          <div class="autor-name">Marta Ruiz</div>
-          <div class="autor-coleccion">La palabra prestada</div>
-        </div>
-      </div>
-      <div class="autor-bio">Lingüista y ensayista. Investigó durante quince años el quichua santiagueño antes de escribir el libro que nadie del ámbito académico quiso publicar.</div>
-      <div class="autor-libros">
-        <div class="autor-libro-item">El idioma de los otros <span>2023</span></div>
-      </div>
-    </div>
-
-    <div class="autor-card col-voces reveal reveal-d2">
-      <div class="autor-header">
-        <div class="autor-initials">PT</div>
-        <div class="autor-meta">
-          <div class="autor-name">Pablo Tolaba</div>
-          <div class="autor-coleccion">Voces del monte</div>
-        </div>
-      </div>
-      <div class="autor-bio">Jujeño. Criado entre la puna y la ciudad, escribe desde la grieta de los dos. Sus poemas se leyeron en voz alta antes de escribirse.</div>
-      <div class="autor-libros">
-        <div class="autor-libro-item">Tierra sin nombre <span>2023</span></div>
-      </div>
-    </div>
-
-    <div class="autor-card col-decir reveal">
-      <div class="autor-header">
-        <div class="autor-initials">CM</div>
-        <div class="autor-meta">
-          <div class="autor-name">Carla Moreno</div>
-          <div class="autor-coleccion">Decir primero</div>
-        </div>
-      </div>
-      <div class="autor-bio">Salta, 1994. Maestra rural. Empezó a escribir cuando dejó de tener tiempo para escribir. Su libro salió antes de que ella se animara a llamarse escritora.</div>
-      <div class="autor-libros">
-        <div class="autor-libro-item">Primeras palabras <span>2022</span></div>
-      </div>
-    </div>
-
-    <div class="autor-card col-palabra reveal reveal-d1">
-      <div class="autor-header">
-        <div class="autor-initials">SC</div>
-        <div class="autor-meta">
-          <div class="autor-name">Sergio Coria</div>
-          <div class="autor-coleccion">La palabra prestada</div>
-        </div>
-      </div>
-      <div class="autor-bio">Músico reconvertido en ensayista. Escribe sobre el silencio con la precisión de quien sabe cuándo no tocar. Sus textos piensan en voz baja.</div>
-      <div class="autor-libros">
-        <div class="autor-libro-item">Hablar en silencio <span>2022</span></div>
-      </div>
-    </div>
-
-  </div>
+  <div class="autores-grid" id="autoresGrid"></div>
 
   <div class="autores-cta reveal">
     <div>
@@ -396,6 +282,49 @@ document.getElementById('hamburger').addEventListener('click', () => {
 });
 document.getElementById('mobileClose').addEventListener('click', closeMobile);
 function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+// Autores desde JSON
+const COL_LABELS = {
+  'voces-del-monte':     'Voces del monte',
+  'la-palabra-prestada': 'La palabra prestada',
+  'decir-primero':       'Decir primero'
+};
+const COL_CSS = {
+  'voces-del-monte':     'col-voces',
+  'la-palabra-prestada': 'col-palabra',
+  'decir-primero':       'col-decir'
+};
+const DELAYS = ['', 'reveal-d1', 'reveal-d2'];
+
+function renderAutores(items) {
+  const grid = document.getElementById('autoresGrid');
+  grid.innerHTML = items.map((a, i) => {
+    const librosHTML = a.libros.map(l =>
+      `<div class="autor-libro-item">${l.titulo} <span>${l.anio}</span></div>`
+    ).join('');
+    return `
+      <div class="autor-card ${COL_CSS[a.coleccion]} reveal ${DELAYS[i % 3]}">
+        <div class="autor-header">
+          <div class="autor-initials">${a.iniciales}</div>
+          <div class="autor-meta">
+            <div class="autor-name">${a.nombre}</div>
+            <div class="autor-coleccion">${COL_LABELS[a.coleccion]}</div>
+          </div>
+        </div>
+        <div class="autor-bio">${a.bio}</div>
+        <div class="autor-libros">${librosHTML}</div>
+      </div>`;
+  }).join('');
+  grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
+fetch('../content/autores.json')
+  .then(r => r.json())
+  .then(data => renderAutores(data.items))
+  .catch(() => {
+    document.getElementById('autoresGrid').innerHTML =
+      '<p style="color:rgba(255,255,255,0.3);font-family:\'Cormorant Garamond\',serif;font-style:italic;padding:40px 0;">No se pudo cargar los autores.</p>';
+  });
 </script>
 </body>
 </html>
