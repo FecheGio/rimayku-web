@@ -6,7 +6,7 @@
   <title>Panel editorial — Rimayku</title>
 </head>
 <body>
-  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+  <script src="https://unpkg.com/@sveltia/cms@0.41.4/dist/sveltia-cms.js"></script>
   <script>
   CMS.init({
     config: {
@@ -15,6 +15,7 @@
         repo: 'FecheGio/rimayku-web',
         branch: 'master',
         base_url: 'https://rimayku-web.vercel.app',
+        auth_endpoint: 'auth',
       },
       media_folder: 'media',
       public_folder: '/media',
