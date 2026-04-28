@@ -9,6 +9,10 @@
     {
       "source": "/content/(.*)",
       "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
+    },
+    {
+      "source": "/sitemap.xml",
+      "headers": [{ "key": "Content-Type", "value": "application/xml" }]
     }
   ]
 }
