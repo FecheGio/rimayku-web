@@ -3,7 +3,7 @@ backend:
   repo: FecheGio/rimayku-web
   branch: master
   auth_type: pkce
-  app_id: REEMPLAZAR_CON_CLIENT_ID
+  app_id: Ov23li1s53LTaH5dDMao
 
 media_folder: "media"
 public_folder: "/media"
