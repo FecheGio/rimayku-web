@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ediciones Rimayku</title>
+<title>Ediciones Rimayku — Editorial argentina independiente</title>
+<meta name="description" content="Ediciones Rimayku publica narrativa, poesía y ensayo de voces que todavía no encontraron su editorial. Buenos Aires, Argentina.">
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://rimayku.com.ar">
+<meta property="og:title"       content="Ediciones Rimayku — Editorial argentina independiente">
+<meta property="og:description" content="Publicamos la voz que se animó a decirlo. Narrativa, poesía y ensayo. Buenos Aires, Argentina.">
+<meta property="og:image"       content="https://rimayku.com.ar/favicon.png">
+<meta name="twitter:card"       content="summary">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="shortcut icon" href="favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
@@ -38,15 +45,9 @@
   overflow: hidden;
 }
 .hero-right::before {
-  content: 'R';
-  position: absolute;
-  font-family: var(--ub);
-  font-weight: 900;
   font-size: 600px;
   color: rgba(0,0,0,0.1);
-  line-height: 1;
   right: -80px; top: -60px;
-  pointer-events: none;
 }
 
 .hero-logo-wrap {
@@ -341,15 +342,9 @@
   overflow: hidden;
 }
 #manuscrito::before {
-  content: 'R';
-  position: absolute;
-  font-family: var(--ub);
-  font-weight: 900;
   font-size: 700px;
   color: rgba(0,0,0,0.07);
-  line-height: 1;
   right: -100px; bottom: -120px;
-  pointer-events: none;
 }
 
 .ms-grid {
@@ -432,6 +427,14 @@
   color: rgba(255,255,255,0.5);
   cursor: default;
 }
+.form-status {
+  font-family: var(--cg);
+  font-size: 16px; line-height: 1.4;
+  font-style: italic;
+  margin-top: 12px;
+}
+.form-status.ok  { color: var(--c); }
+.form-status.err { color: rgba(0,0,0,0.7); }
 
 /* ── NEWSLETTER ── */
 #newsletter {
@@ -600,7 +603,7 @@
     <div class="hero-foot">Animarse a hablar.</div>
   </div>
 
-  <div class="hero-right">
+  <div class="hero-right deco-r">
     <div class="hero-right-content">
       <div class="hero-tagline">La voz que se anima a hablar cuando nadie le dio permiso.</div>
       <div class="hero-def">
@@ -699,7 +702,7 @@
 </section>
 
 <!-- ══ TENGO COSAS PARA DECIR ══ -->
-<section id="manuscrito">
+<section id="manuscrito" class="deco-r">
   <div class="ms-grid">
     <div class="ms-left reveal">
       <h2>Tengo cosas<br>para decir.</h2>
@@ -725,24 +728,24 @@
     </div>
 
     <div class="ms-right reveal reveal-d2">
-      <form class="ms-form" onsubmit="handleSubmit(event)">
+      <form id="manuscritoForm" class="ms-form" onsubmit="handleSubmit(event)">
         <div class="form-row">
           <div class="form-field">
             <label>Nombre</label>
-            <input type="text" placeholder="Tu nombre" required>
+            <input type="text" name="nombre" placeholder="Tu nombre" required>
           </div>
           <div class="form-field">
             <label>Apellido</label>
-            <input type="text" placeholder="Tu apellido" required>
+            <input type="text" name="apellido" placeholder="Tu apellido" required>
           </div>
         </div>
         <div class="form-field">
           <label>Correo electrónico</label>
-          <input type="email" placeholder="tu@correo.com" required>
+          <input type="email" name="email" placeholder="tu@correo.com" required>
         </div>
         <div class="form-field">
           <label>Género literario</label>
-          <select required>
+          <select name="genero" required>
             <option value="" disabled selected>Seleccioná un género</option>
             <option>Narrativa</option>
             <option>Poesía</option>
@@ -752,13 +755,14 @@
         </div>
         <div class="form-field">
           <label>Título de la obra</label>
-          <input type="text" placeholder="Título del manuscrito" required>
+          <input type="text" name="titulo" placeholder="Título del manuscrito" required>
         </div>
         <div class="form-field">
           <label>¿Qué quisiste decir con este libro?</label>
-          <textarea placeholder="Contanos en tus palabras de qué se trata." required></textarea>
+          <textarea name="sinopsis" placeholder="Contanos en tus palabras de qué se trata." required></textarea>
         </div>
         <button type="submit" class="form-submit" id="submitBtn">Animarse a decirlo →</button>
+        <div id="formStatus" class="form-status" hidden></div>
       </form>
     </div>
   </div>
@@ -786,20 +790,22 @@
       <div class="footer-col-title">Contacto</div>
       <div class="footer-links">
         <a href="mailto:hola@rimayku.com.ar">hola@rimayku.com.ar</a>
-        <a href="#">rimayku.com.ar</a>
-        <a href="#">Buenos Aires, Argentina</a>
+        <span class="footer-links">rimayku.com.ar</span><!-- TODO: link cuando el dominio esté activo -->
+        <span class="footer-links">Buenos Aires, Argentina</span>
       </div>
     </div>
   </div>
   <div class="footer-bottom">
     <div class="footer-copy">© 2025 Ediciones Rimayku · Ri · may · ku</div>
     <div class="footer-social">
-      <a href="#">Instagram</a>
-      <a href="#">TikTok</a>
+      <!-- TODO: reemplazar con URLs reales de redes sociales -->
+      <span>Instagram</span>
+      <span>TikTok</span>
     </div>
   </div>
 </footer>
 
+<script src="js/site.js"></script>
 <script>
 // Novedades desde JSON
 const TIPO_LABELS = { lanzamiento: 'Lanzamiento', evento: 'Evento', editorial: 'Nota editorial' };
@@ -830,50 +836,39 @@ fetch('content/novedades.json')
   .then(data => renderNovedades(data.items))
   .catch(() => {});
 
-// Nav scroll
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 40);
-});
-
-// Scroll reveal
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// Dropdown — click-based
-const dropItem   = document.getElementById('dropdownItem');
-const dropToggle = document.getElementById('dropdownToggle');
-
-dropToggle.addEventListener('click', (e) => {
-  // Only intercept the click to toggle if we're not on mobile
-  if (window.innerWidth <= 900) return;
-  e.preventDefault();
-  dropItem.classList.toggle('open');
-});
-
-document.addEventListener('click', (e) => {
-  if (!dropItem.contains(e.target)) {
-    dropItem.classList.remove('open');
-  }
-});
-
-// Mobile menu
-document.getElementById('hamburger').addEventListener('click', () => {
-  document.getElementById('mobileMenu').classList.add('open');
-});
-document.getElementById('mobileClose').addEventListener('click', closeMobile);
-function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
-
 // Form
-function handleSubmit(e) {
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xwvadnnq';
+
+async function handleSubmit(e) {
   e.preventDefault();
+  const form = e.target;
   const btn = document.getElementById('submitBtn');
-  btn.textContent = 'Manuscrito recibido ✦';
+  const status = document.getElementById('formStatus');
+  const original = btn.textContent;
+
   btn.disabled = true;
+  btn.textContent = 'Enviando…';
+  status.hidden = true;
+
+  try {
+    const res = await fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: new FormData(form),
+    });
+    if (!res.ok) throw new Error('Formspree respondió con error');
+    btn.textContent = 'Manuscrito recibido ✦';
+    status.textContent = 'Gracias. Te respondemos en un plazo de 90 días.';
+    status.className = 'form-status ok';
+    status.hidden = false;
+    form.reset();
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = original;
+    status.textContent = 'No pudimos enviar tu manuscrito. Probá de nuevo o escribinos a hola@rimayku.com.ar';
+    status.className = 'form-status err';
+    status.hidden = false;
+  }
 }
 </script>
 

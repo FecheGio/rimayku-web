@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Colecciones — Ediciones Rimayku</title>
+<meta name="description" content="Las colecciones editoriales de Rimayku: Voces del monte, La palabra prestada y Decir primero.">
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://rimayku.com.ar/catalogo/colecciones.html">
+<meta property="og:title"       content="Colecciones — Ediciones Rimayku">
+<meta property="og:description" content="Las colecciones de Rimayku: Voces del monte, La palabra prestada y Decir primero.">
+<meta property="og:image"       content="https://rimayku.com.ar/favicon.png">
+<meta name="twitter:card"       content="summary">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="shortcut icon" href="../favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
@@ -292,56 +299,20 @@
       <div class="footer-col-title">Contacto</div>
       <div class="footer-links">
         <a href="mailto:hola@rimayku.com.ar">hola@rimayku.com.ar</a>
-        <a href="#">rimayku.com.ar</a>
-        <a href="#">Buenos Aires, Argentina</a>
+        <span class="footer-links">rimayku.com.ar</span>
+        <span class="footer-links">Buenos Aires, Argentina</span>
       </div>
     </div>
   </div>
   <div class="footer-bottom">
     <div class="footer-copy">© 2025 Ediciones Rimayku · Ri · may · ku</div>
     <div class="footer-social">
-      <a href="#">Instagram</a>
-      <a href="#">TikTok</a>
+      <span>Instagram</span>
+      <span>TikTok</span>
     </div>
   </div>
 </footer>
 
-<script>
-// Nav stays scrolled on interior pages
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  if (window.scrollY <= 40) nav.classList.remove('scrolled');
-  else nav.classList.add('scrolled');
-});
-
-// Scroll reveal
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// Dropdown — click-based
-const dropItem   = document.getElementById('dropdownItem');
-const dropToggle = document.getElementById('dropdownToggle');
-
-dropToggle.addEventListener('click', (e) => {
-  if (window.innerWidth <= 900) return;
-  e.preventDefault();
-  dropItem.classList.toggle('open');
-});
-
-document.addEventListener('click', (e) => {
-  if (!dropItem.contains(e.target)) dropItem.classList.remove('open');
-});
-
-// Mobile menu
-document.getElementById('hamburger').addEventListener('click', () => {
-  document.getElementById('mobileMenu').classList.add('open');
-});
-document.getElementById('mobileClose').addEventListener('click', closeMobile);
-function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
-</script>
+<script src="../js/site.js"></script>
 </body>
 </html>

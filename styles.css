@@ -4,7 +4,6 @@
   --n: #111111;
   --b: #FAFAFA;
   --night: #0C0C0C;
-  --g: #666;
   --ub: 'Unbounded', sans-serif;
   --cg: 'Cormorant Garamond', serif;
 }
@@ -266,14 +265,22 @@ footer {
 .reveal-d1 { transition-delay: 0.1s; }
 .reveal-d2 { transition-delay: 0.2s; }
 .reveal-d3 { transition-delay: 0.3s; }
-.reveal-d4 { transition-delay: 0.4s; }
 
 /* ── SECTION LABELS ── */
 .section-label {
   font-size: 8px; letter-spacing: 4px; text-transform: uppercase;
   color: rgba(255,255,255,0.2); display: block; margin-bottom: 14px;
 }
-.section-label.dark { color: var(--g); }
+
+/* ── DECORATIVE R (hero + manuscrito) ── */
+.deco-r::before {
+  content: 'R';
+  position: absolute;
+  font-family: var(--ub);
+  font-weight: 900;
+  line-height: 1;
+  pointer-events: none;
+}
 
 /* ── PAGE HERO (catalog pages) ── */
 .page-hero {

@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Autores — Ediciones Rimayku</title>
+<meta name="description" content="Los autores de Ediciones Rimayku. Narrativa, poesía y ensayo de voces argentinas e iberoamericanas.">
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://rimayku.com.ar/catalogo/autores.html">
+<meta property="og:title"       content="Autores — Ediciones Rimayku">
+<meta property="og:description" content="Los autores de Ediciones Rimayku.">
+<meta property="og:image"       content="https://rimayku.com.ar/favicon.png">
+<meta name="twitter:card"       content="summary">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="shortcut icon" href="../favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
@@ -241,50 +248,22 @@
       <div class="footer-col-title">Contacto</div>
       <div class="footer-links">
         <a href="mailto:hola@rimayku.com.ar">hola@rimayku.com.ar</a>
-        <a href="#">rimayku.com.ar</a>
-        <a href="#">Buenos Aires, Argentina</a>
+        <span class="footer-links">rimayku.com.ar</span>
+        <span class="footer-links">Buenos Aires, Argentina</span>
       </div>
     </div>
   </div>
   <div class="footer-bottom">
     <div class="footer-copy">© 2025 Ediciones Rimayku · Ri · may · ku</div>
     <div class="footer-social">
-      <a href="#">Instagram</a>
-      <a href="#">TikTok</a>
+      <span>Instagram</span>
+      <span>TikTok</span>
     </div>
   </div>
 </footer>
 
+<script src="../js/site.js"></script>
 <script>
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 40);
-});
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-const dropItem   = document.getElementById('dropdownItem');
-const dropToggle = document.getElementById('dropdownToggle');
-dropToggle.addEventListener('click', (e) => {
-  if (window.innerWidth <= 900) return;
-  e.preventDefault();
-  dropItem.classList.toggle('open');
-});
-document.addEventListener('click', (e) => {
-  if (!dropItem.contains(e.target)) dropItem.classList.remove('open');
-});
-
-document.getElementById('hamburger').addEventListener('click', () => {
-  document.getElementById('mobileMenu').classList.add('open');
-});
-document.getElementById('mobileClose').addEventListener('click', closeMobile);
-function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
-
 // Autores desde JSON
 const COL_LABELS = {
   'voces-del-monte':     'Voces del monte',

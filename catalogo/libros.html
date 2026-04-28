@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Todos los libros — Ediciones Rimayku</title>
+<meta name="description" content="Catálogo completo de Ediciones Rimayku. Narrativa, poesía y ensayo de voces argentinas e iberoamericanas.">
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://rimayku.com.ar/catalogo/libros.html">
+<meta property="og:title"       content="Todos los libros — Ediciones Rimayku">
+<meta property="og:description" content="Catálogo completo de Ediciones Rimayku. Narrativa, poesía y ensayo.">
+<meta property="og:image"       content="https://rimayku.com.ar/favicon.png">
+<meta name="twitter:card"       content="summary">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="shortcut icon" href="../favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
@@ -54,7 +61,7 @@
   flex-direction: column;
   cursor: default;
 }
-.libro-card[data-hidden="true"] { display: none; }
+.libro-card.hidden { display: none; }
 
 .libro-cover {
   aspect-ratio: 2/3;
@@ -214,9 +221,7 @@
   </div>
 
   <div class="libros-grid" id="librosGrid">
-    <div class="libros-empty visible" id="librosEmpty" style="display:block;">
-      <p style="color:rgba(255,255,255,0.2);font-family:'Cormorant Garamond',serif;font-style:italic;">Cargando catálogo…</p>
-    </div>
+    <p class="libros-empty visible" id="librosLoading" style="color:rgba(255,255,255,0.2);font-family:'Cormorant Garamond',serif;font-style:italic;">Cargando catálogo…</p>
   </div>
 </div>
 
@@ -242,49 +247,22 @@
       <div class="footer-col-title">Contacto</div>
       <div class="footer-links">
         <a href="mailto:hola@rimayku.com.ar">hola@rimayku.com.ar</a>
-        <a href="#">rimayku.com.ar</a>
-        <a href="#">Buenos Aires, Argentina</a>
+        <span class="footer-links">rimayku.com.ar</span>
+        <span class="footer-links">Buenos Aires, Argentina</span>
       </div>
     </div>
   </div>
   <div class="footer-bottom">
     <div class="footer-copy">© 2025 Ediciones Rimayku · Ri · may · ku</div>
     <div class="footer-social">
-      <a href="#">Instagram</a>
-      <a href="#">TikTok</a>
+      <span>Instagram</span>
+      <span>TikTok</span>
     </div>
   </div>
 </footer>
 
+<script src="../js/site.js"></script>
 <script>
-// Nav
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  if (window.scrollY <= 40) nav.classList.remove('scrolled');
-  else nav.classList.add('scrolled');
-});
-
-// Scroll reveal
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// Dropdown
-const dropItem   = document.getElementById('dropdownItem');
-const dropToggle = document.getElementById('dropdownToggle');
-
-dropToggle.addEventListener('click', (e) => {
-  if (window.innerWidth <= 900) return;
-  e.preventDefault();
-  dropItem.classList.toggle('open');
-});
-document.addEventListener('click', (e) => {
-  if (!dropItem.contains(e.target)) dropItem.classList.remove('open');
-});
-
 // Catálogo desde JSON
 const COL_LABELS = {
   'voces-del-monte':    'Voces del monte',
@@ -295,6 +273,8 @@ const DELAYS = ['', 'reveal-d1', 'reveal-d2', 'reveal-d3'];
 
 function renderLibros(items) {
   const grid = document.getElementById('librosGrid');
+  const loading = document.getElementById('librosLoading');
+  if (loading) loading.remove();
   const cards = items.map((l, i) => {
     const blanco = l.color_texto === '#FAFAFA';
     const colAlpha = blanco ? 'rgba(255,255,255,0.4)' : 'rgba(17,17,17,0.35)';
@@ -331,7 +311,7 @@ function filtrar(btn) {
   let visible = 0;
   document.querySelectorAll('.libro-card[data-coleccion]').forEach(card => {
     const show = filtro === 'todos' || card.dataset.coleccion === filtro;
-    card.style.display = show ? 'flex' : 'none';
+    card.classList.toggle('hidden', !show);
     if (show) visible++;
   });
   document.getElementById('librosEmpty').classList.toggle('visible', visible === 0);
@@ -342,15 +322,8 @@ fetch('../content/libros.json')
   .then(data => renderLibros(data.items))
   .catch(() => {
     document.getElementById('librosGrid').innerHTML =
-      '<div class="libros-empty visible"><p>No se pudo cargar el catálogo.</p></div>';
+      '<p class="libros-empty visible">No se pudo cargar el catálogo.</p>';
   });
-
-// Mobile menu
-document.getElementById('hamburger').addEventListener('click', () => {
-  document.getElementById('mobileMenu').classList.add('open');
-});
-document.getElementById('mobileClose').addEventListener('click', closeMobile);
-function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
 </script>
 </body>
 </html>
