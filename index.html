@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ediciones Rimayku</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="shortcut icon" href="favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <style>
@@ -482,35 +484,39 @@
   color: rgba(255,255,255,0.25);
 }
 
-/* Substack widget overrides */
-#custom-substack-embed .substack-widget {
-  background: transparent !important;
-  border: none !important;
-  padding: 0 !important;
+/* Newsletter form */
+.nl-form {
+  display: flex;
+  gap: 0;
 }
-#custom-substack-embed input[type="email"] {
-  font-family: var(--cg) !important;
-  font-style: italic !important;
-  font-size: 16px !important;
-  background: rgba(255,255,255,0.04) !important;
-  border: 1px solid rgba(255,255,255,0.15) !important;
-  color: var(--b) !important;
-  padding: 14px 16px !important;
-  border-radius: 0 !important;
-  width: 100% !important;
+.nl-input {
+  font-family: var(--cg);
+  font-size: 16px; font-style: italic;
+  color: var(--b);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-right: none;
+  padding: 14px 16px;
+  outline: none;
+  flex: 1;
+  min-width: 0;
+  transition: border-color 0.2s;
 }
-#custom-substack-embed button {
-  font-family: var(--ub) !important;
-  font-size: 9px !important; font-weight: 700 !important;
-  letter-spacing: 3px !important; text-transform: uppercase !important;
-  background: var(--c) !important;
-  color: var(--b) !important;
-  border: none !important;
-  padding: 14px 24px !important;
-  border-radius: 0 !important;
-  cursor: pointer !important;
-  white-space: nowrap !important;
+.nl-input::placeholder { color: rgba(255,255,255,0.3); }
+.nl-input:focus { border-color: rgba(255,255,255,0.5); }
+.nl-btn {
+  font-family: var(--ub);
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--b);
+  background: var(--c);
+  border: none;
+  padding: 14px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
 }
+.nl-btn:hover { background: #a0002e; }
 
 .nl-disclaimer {
   font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
@@ -683,8 +689,10 @@
         </svg>
         <span>Enviado por Substack</span>
       </div>
-      <!-- Substack widget — reemplazá "rimayku" con tu nombre de publicación -->
-      <div id="custom-substack-embed"></div>
+      <form class="nl-form" onsubmit="submitNewsletter(event)">
+        <input class="nl-input" id="nlEmail" type="email" placeholder="tu@correo.com" required>
+        <button class="nl-btn" type="submit">Suscribirse</button>
+      </form>
       <div class="nl-disclaimer">Sin spam. Podés darte de baja cuando quieras.</div>
     </div>
   </div>
@@ -869,21 +877,12 @@ function handleSubmit(e) {
 }
 </script>
 
-<!-- Substack newsletter widget — reemplazá "rimayku" con el nombre de tu publicación -->
 <script>
-window.CustomSubstackWidget = {
-  substackUrl: "rimayku.substack.com",
-  placeholder: "tu@correo.com",
-  buttonText: "Suscribirse",
-  theme: "custom",
-  colors: {
-    primary: "#C4003A",
-    input: "#1a1a1a",
-    email: "#FAFAFA",
-    text: "#FAFAFA",
-  }
-};
+function submitNewsletter(e) {
+  e.preventDefault();
+  const email = encodeURIComponent(document.getElementById('nlEmail').value);
+  window.open('https://rimayku.substack.com?email=' + email, '_blank');
+}
 </script>
-<script src="https://substackapi.com/widget.js" async></script>
 </body>
 </html>
