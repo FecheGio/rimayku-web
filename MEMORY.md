@@ -116,12 +116,19 @@ Dropdown: click-based (no hover) para evitar que se cierre al mover el mouse al 
 
 ## Estado pendiente
 
-- [ ] El usuario todavía no agregó `GITHUB_CLIENT_SECRET` en Vercel
-- [ ] El usuario todavía no actualizó el callback URL en la OAuth App de GitHub a `/callback`
-- [ ] Conectar formulario "Tengo cosas para decir" (pendiente para próxima sesión)
+- [ ] Conectar formulario "Tengo cosas para decir"
 - [ ] Reemplazar contenido de ejemplo (libros/autores/novedades) con datos reales
 - [ ] Reemplazar URL del Substack con la publicación real cuando esté activa
 - [ ] Agregar dominio propio (rimayku.com.ar) en Vercel
+
+## CMS funcionando — checklist final
+
+- ✅ `GITHUB_CLIENT_SECRET` cargado en Vercel
+- ✅ Callback URL en OAuth App = `https://rimayku-web.vercel.app/api/callback`
+- ✅ `admin/config.yml` borrado (forzaba `auth_type: pkce`)
+- ✅ `admin/index.html` con `window.CMS_MANUAL_INIT = true` antes del bundle
+- ✅ Config inline con `load_config_file: false` y `auth_endpoint: 'auth'`
+- ✅ Sveltia CMS pinneado a `0.158.0`
 
 ---
 
@@ -132,3 +139,5 @@ Dropdown: click-based (no hover) para evitar que se cierre al mover el mouse al 
 - **PKCE descartado:** GitHub no soporta PKCE para OAuth apps públicas. Se usa OAuth estándar con proxy serverless en Vercel.
 - **Form propio para Substack:** el widget oficial de Substack inyecta un `;` suelto al DOM (bug conocido).
 - **Dropdown click-based:** el hover de CSS cerraba el menú antes de que el usuario pudiera seleccionar una opción.
+- **CMS_MANUAL_INIT necesario:** el bundle de Sveltia hace auto-init al cargar si no está la flag, lo que dispara fetch de `config.yml` antes de que corra nuestro `CMS.init()` con config inline.
+- **`load_config_file: false` necesario:** sin esto, Sveltia mergea `config.yml` con la config inline (en lugar de usar solo la inline).
